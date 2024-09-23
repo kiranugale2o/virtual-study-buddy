@@ -48,7 +48,6 @@ export async function POST(req) {
 
     //add user email and otp in database
     const user = await User({
-      userName,
       email,
       password: hashPass,
       otp,
