@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import cookie from "cookie";
 import { headers } from "next/headers";
 import { parse } from "cookie";
+import DatabaseConn from "@/database";
+import { Student } from "@/model/StudentProfile";
 //fetch Current User is exit or not
 export async function currentUser() {
   const headersList = headers();
@@ -27,5 +29,16 @@ export async function currentUser() {
         return decoded;
       }
     );
+  }
+}
+
+//fetch exiting user data and return
+export async function fetchUser(id) {
+  await DatabaseConn();
+  const data = await Student.findOne({ userId: id });
+  if (data) {
+    return JSON.parse(JSON.stringify(data));
+  } else {
+    return null;
   }
 }

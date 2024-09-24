@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Button } from "../ui/button";
 const initialSignUpData = {
   email: "",
   password: "",
@@ -11,6 +12,17 @@ const initialSignUpData = {
 export default function SignUpCard() {
   const [currentSignUpData, setSignUpData] = useState(initialSignUpData);
   const router = useRouter();
+
+  function handleButtonDisabled() {
+    if (
+      currentSignUpData.email.trim() === "" ||
+      currentSignUpData.password.trim() === ""
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   function handleSignUp() {
     fetch("/api/sign-up", {
       method: "POST",
@@ -108,12 +120,13 @@ export default function SignUpCard() {
                   </label>
                 </div>
                 <div className="flex px-4 py-3 justify-end">
-                  <button
+                  <Button
+                    disabled={handleButtonDisabled()}
                     type="submit"
                     className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#1d8cd7] text-[#f8fafb] text-sm font-bold leading-normal tracking-[0.015em]"
                   >
                     <span className="truncate w-full">Sign up</span>
-                  </button>
+                  </Button>
                 </div>
               </form>
             </div>
