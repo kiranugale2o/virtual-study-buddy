@@ -58,9 +58,9 @@ export async function POST(req) {
 
     if (user) {
       // Send OTP email
-      transporter.sendMail({
+      await transporter.sendMail({
         to: email,
-        subject: "Email Verification Code ",
+        subject: "Email Verification Code send  ",
         html: `
          <div>
           <h1>${appName}</h1>
