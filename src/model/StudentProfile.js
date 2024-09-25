@@ -28,14 +28,17 @@ const studentSchema = new mongoose.Schema({
   },
   // 3. Study Preferences
   subjectsOfInterest: {
-    type: String, // array of strings to store multiple subjects
+    type: [String], // array of strings to store multiple subjects
     required: true,
   },
   preferredStudyMethods: {
-    type: String, // array of study methods like 'group', 'video call', etc.
+    type: [String], // array of study methods like 'group', 'video call', etc.
     required: true,
   },
-
+  studyTime: {
+    type: [String],
+    required: true,
+  },
   // 4. Location Information
   location: {
     type: String,

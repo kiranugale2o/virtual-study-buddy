@@ -35,12 +35,23 @@ export default function OnBoardCard({ user, email }) {
     console.log(data, error);
 
     if (data) {
+      // Get the public URL for the image
+
+      const url = await getImageUrl("studybuddy", data.path);
       setOnboardData({
         ...currentOnboardData,
-        profilePicture: data.path,
+        profilePicture: url,
       });
     }
   }
+  const getImageUrl = (bucketName, filePath) => {
+    // Get the public URL for the image
+    const { data } = supabaseClient.storage
+      .from(bucketName)
+      .getPublicUrl(filePath);
+    return data.publicUrl;
+  };
+
   const router = useRouter();
 
   useEffect(() => {
@@ -48,12 +59,12 @@ export default function OnBoardCard({ user, email }) {
   }, [file]);
 
   async function handleOnboard() {
-    alert();
     const data = {
       ...currentOnboardData,
       userId: user,
       email: email,
     };
+
     console.log(data);
 
     fetch("/api/createprofile", {

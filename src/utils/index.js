@@ -29,7 +29,12 @@ export const studentFormFields = [
     placeholder: "E.g. video call ,chat ,In-person",
     contentType: "input",
   },
-
+  {
+    label: "Study Time",
+    name: "studyTime",
+    placeholder: "E.g. afternoon,evening,morning",
+    contentType: "input",
+  },
   {
     label: "location",
     name: "location",
@@ -51,6 +56,7 @@ export const studenInitialData = {
   CurrentEducation: "",
   subjectsOfInterest: [],
   preferredStudyMethods: [],
+  studyTime: [],
   location: "",
   profilePicture: "",
 };

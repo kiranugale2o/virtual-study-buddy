@@ -1,3 +1,4 @@
+"use server";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import cookie from "cookie";
@@ -5,6 +6,7 @@ import { headers } from "next/headers";
 import { parse } from "cookie";
 import DatabaseConn from "@/database";
 import { Student } from "@/model/StudentProfile";
+import { cookies } from "next/headers";
 //fetch Current User is exit or not
 export async function currentUser() {
   const headersList = headers();
@@ -12,7 +14,7 @@ export async function currentUser() {
   // Parse cookies
   const cookies = parse(cookieHeader);
 
-  // Deserialize the object
+  // // Deserialize the object
   const myObject = cookies["study-buddy_token"];
 
   if (myObject) {
@@ -36,6 +38,17 @@ export async function currentUser() {
 export async function fetchUser(id) {
   await DatabaseConn();
   const data = await Student.findOne({ userId: id });
+  if (data) {
+    return JSON.parse(JSON.stringify(data));
+  } else {
+    return null;
+  }
+}
+
+//fetch all buddy
+export async function fetchAllBuddys() {
+  await DatabaseConn();
+  const data = await Student.find();
   if (data) {
     return JSON.parse(JSON.stringify(data));
   } else {

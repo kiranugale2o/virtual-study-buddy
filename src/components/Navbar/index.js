@@ -1,15 +1,42 @@
 "use client";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import Userbutton from "../userButton";
 
-export default function Navbar() {
+export default function Navbar({ user, ProfileInfo }) {
   const pathname = usePathname();
-  console.log(pathname);
+  const navItem = [
+    {
+      name: "Home",
+      path: "/",
+      show: true,
+    },
+    {
+      name: "find Buddys",
+      path: "/buddys",
+      show: ProfileInfo,
+    },
+    {
+      name: "Notes",
+      path: "/notes",
+      show: ProfileInfo,
+    },
+    {
+      name: "Chat",
+      path: "/chat",
+      show: ProfileInfo,
+    },
+    {
+      name: "Profile",
+      path: "/profile",
+      show: ProfileInfo,
+    },
+  ];
 
   return (
     <>
       <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-10 py-3">
-        <div class="flex items-center gap-4 text-[#111418]">
+        <div class="flex items-center gap-2 text-[#111418]">
           <div class="size-4">
             <svg
               viewBox="0 0 48 48"
@@ -22,17 +49,42 @@ export default function Navbar() {
               ></path>
             </svg>
           </div>
-          <h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">
+          <h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em] ">
             Study Buddy
           </h2>
         </div>
-        <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
-          <Link href={pathname === "/sign-up" ? "/sign-in" : "/sign-up"}>
-            <span class="">
-              {pathname === "/sign-up" ? "Log In" : "Create Account"}
-            </span>
-          </Link>
-        </button>
+        <div className="flex">
+          <div className=" hidden lg:flex flex-row  grid gap-10 grid-cols-3 mr-5">
+            {navItem.map((d) => {
+              return (
+                <>
+                  {d.show ? (
+                    <Link
+                      href={d.path}
+                      className=" font-semibold uppercase flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] hover:bg-sky-300 text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]"
+                    >
+                      {d.name}
+                    </Link>
+                  ) : null}
+                </>
+              );
+            })}
+          </div>
+          <button
+            className={`${
+              user ? "hidden" : "flex"
+            } flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]`}
+          >
+            <Link href={pathname === "/sign-up" ? "/sign-in" : "/sign-up"}>
+              <span class="">
+                {pathname === "/sign-up" ? "Log In" : "Create Account"}
+              </span>
+            </Link>
+          </button>
+          <div style={{ display: `${user ? "block" : "none"}` }}>
+            <Userbutton user={user} ProfileUser={ProfileInfo} />
+          </div>
+        </div>
       </header>
     </>
   );

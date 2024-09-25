@@ -1,12 +1,13 @@
 "use client";
 
+import { currentUser, fetchUser } from "@/actions";
 import Navbar from "../Navbar";
 
-export default function CommonLayout({ children }) {
+export default async function CommonLayout({ user, ProfileUser, children }) {
   return (
     <>
       {/* headers section */}
-      <Navbar />
+      <Navbar user={user} ProfileInfo={ProfileUser} />
       <main>{children}</main>
     </>
   );
