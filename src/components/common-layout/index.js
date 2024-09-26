@@ -3,7 +3,7 @@
 import { currentUser, fetchUser } from "@/actions";
 import Navbar from "../Navbar";
 
-export default async function CommonLayout({ user, ProfileUser, children }) {
+export default function CommonLayout({ user, ProfileUser, children }) {
   return (
     <>
       {/* headers section */}
