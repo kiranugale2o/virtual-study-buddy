@@ -7,6 +7,7 @@ import { parse } from "cookie";
 import DatabaseConn from "@/database";
 import { Student } from "@/model/StudentProfile";
 import { cookies } from "next/headers";
+import MatchedStudent from "@/model/MatchedStudent";
 //fetch Current User is exit or not
 export async function currentUser() {
   const headersList = headers();
@@ -55,3 +56,17 @@ export async function fetchAllBuddys() {
     return null;
   }
 }
+
+//get matched buddys
+export const getMatchedStudents = async (id) => {
+  // Find the student and populate the matchedStudents field with actual documents
+  const studentWithMatches = await MatchedStudent.findOne({
+    userId: id,
+  }).populate("matchedStudents");
+
+  if (studentWithMatches) {
+    return JSON.parse(JSON.stringify(studentWithMatches.matchedStudents));
+  } else {
+    return null;
+  }
+};

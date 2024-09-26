@@ -1,9 +1,29 @@
 "use client";
 
+import Link from "next/link";
 import { Button } from "../ui/button";
 
 export default function FindBuddy({ user, ProfileUser, buddys }) {
   const ar = [1, 2, 2, 2, 2, 2, 2, 3, 2];
+
+  function handleMatchButton(id) {
+    const data = {
+      userId: ProfileUser?._id,
+      matchUser: id,
+    };
+    fetch("/api/addmatchbuddy", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }).then((res) =>
+      res.json().then((res) => {
+        if (res.success) {
+          alert(res.message);
+        } else {
+          alert(res.message);
+        }
+      })
+    );
+  }
   return (
     <>
       <div
@@ -22,6 +42,9 @@ export default function FindBuddy({ user, ProfileUser, buddys }) {
                     this are your study preferences and we'll find you a buddy.
                   </p>
                 </div>
+                <Link href="/buddy/mybuddy">
+                  <Button className="bg-sky-400 mt-5">My Buddy </Button>
+                </Link>
               </div>
               <h2 className="text-[#111518] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
                 I want to study
@@ -98,7 +121,14 @@ export default function FindBuddy({ user, ProfileUser, buddys }) {
                               </p>
                             </div>
 
-                            <Button className="ml-10 bg-sky-300">Match</Button>
+                            <Button
+                              className="ml-10 bg-sky-400"
+                              onClick={() => {
+                                handleMatchButton(d._id);
+                              }}
+                            >
+                              Match
+                            </Button>
                           </div>
                         </>
                       )}{" "}

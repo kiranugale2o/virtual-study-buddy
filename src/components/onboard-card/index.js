@@ -63,6 +63,7 @@ export default function OnBoardCard({ user, email }) {
       ...currentOnboardData,
       userId: user,
       email: email,
+      MatchedStudent: [],
     };
 
     console.log(data);

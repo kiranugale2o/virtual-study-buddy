@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+mongoose.set("strictPopulate", false);
 async function DatabaseConn() {
   const Mongo_DB = process.env.DATABASE_LINK;
 
