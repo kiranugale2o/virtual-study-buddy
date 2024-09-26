@@ -47,7 +47,7 @@ export default function FindBuddy({ user, ProfileUser, buddys }) {
                 </Link>
               </div>
               <h2 className="text-[#111518] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
-                I want to study
+                You want to study
               </h2>
               <div className="flex gap-3 p-3 flex-wrap pr-4">
                 {ProfileUser?.studyTime.map((d) => {
@@ -57,7 +57,7 @@ export default function FindBuddy({ user, ProfileUser, buddys }) {
                         return (
                           <>
                             <div className="flex flex-wrap">
-                              <div className="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#f0f2f5] pl-4 pr-4">
+                              <div className="flex bg-sky-100 h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#f0f2f5] pl-4 pr-4">
                                 <p className="text-[#111518] text-sm font-medium leading-normal">
                                   {time}
                                 </p>
@@ -71,7 +71,7 @@ export default function FindBuddy({ user, ProfileUser, buddys }) {
                 })}
               </div>
               <h2 className="text-[#111518] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
-                I'm interested in
+                You are interested in
               </h2>
               <div className="flex flex-wrap ">
                 {ProfileUser?.subjectsOfInterest.map((d) => {
@@ -81,8 +81,8 @@ export default function FindBuddy({ user, ProfileUser, buddys }) {
                         return (
                           <>
                             <div className="flex gap-3 p-3 flex-wrap pr-4">
-                              <div className="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#f0f2f5] pl-4 pr-4">
-                                <p className="text-[#111518] text-sm font-medium leading-normal">
+                              <div className="flex bg-sky-100 h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#f0f2f5] pl-4 pr-4">
+                                <p className="text-[#111518] text-sm font-medium leading-normal ">
                                   {subject}
                                 </p>
                               </div>

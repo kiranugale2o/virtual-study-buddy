@@ -56,7 +56,16 @@ export async function fetchAllBuddys() {
     return null;
   }
 }
-
+//fetch Single Buddy
+export async function fetchOneBuddy(id) {
+  await DatabaseConn();
+  const data = await Student.findById(id);
+  if (data) {
+    return JSON.parse(JSON.stringify(data));
+  } else {
+    return null;
+  }
+}
 //get matched buddys
 export const getMatchedStudents = async (id) => {
   // Find the student and populate the matchedStudents field with actual documents

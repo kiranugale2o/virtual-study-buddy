@@ -2,8 +2,19 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Userbutton from "../userButton";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { MenuIcon } from "lucide-react";
 
 export default function Navbar({ user, ProfileInfo }) {
+  const router = useRouter();
   const pathname = usePathname();
   const navItem = [
     {
@@ -35,8 +46,8 @@ export default function Navbar({ user, ProfileInfo }) {
 
   return (
     <>
-      <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-10 py-3">
-        <div class="flex items-center gap-2 text-[#111418]">
+      <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-5 lg:px-10 py-3  shadow   h-auto ">
+        <div class="flex items-center p-2 lg:p-0 justify-between gap-2 text-[#111418]">
           <div class="size-6 lg:size-8">
             <svg
               viewBox="0 0 48 48"
@@ -53,7 +64,50 @@ export default function Navbar({ user, ProfileInfo }) {
           <h2 class="text-[#111418] text-sky-400 text-2xl lg:text-3xl font-bold leading-tight tracking-[-0.015em] ">
             Study Buddy
           </h2>
+
+          <Sheet>
+            <SheetTrigger className="flex mt-0  ml-20 border rounded-lg bg-sky-100 lg:hidden">
+              <MenuIcon className="font-2xl size-9 p-1  " />
+            </SheetTrigger>
+
+            <SheetContent>
+              <SheetTitle
+                className="uppercase text-2xl semibold text-sky-400 "
+                onClick={() => {
+                  router.push("/");
+                }}
+              >
+                StudyBuddy
+              </SheetTitle>
+              <div className=" flex flex-col lg:hidden justify-start mt-6 gap-5   ">
+                {navItem.map((d) => {
+                  return (
+                    <div key={d.name}>
+                      {d.show ? (
+                        <SheetClose asChild>
+                          <Link
+                            href={d.path}
+                            className="font-semibold uppercase flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] hover:bg-sky-300 bg-sky-100 text-[#111418] text-sm font-bold leading-normal tracking-[0.015em] "
+                          >
+                            {d.name}
+                          </Link>
+                        </SheetClose>
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div
+                className="mt-0 mr-10"
+                style={{ display: `${user ? "block" : "none"}` }}
+              >
+                <Userbutton user={user} ProfileUser={ProfileInfo} />
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
+
         <div className="flex">
           <div className=" hidden lg:flex flex-row  grid gap-10 grid-cols-3 mr-5">
             {navItem.map((d) => {
