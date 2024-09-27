@@ -66,7 +66,11 @@ export default function Navbar({ user, ProfileInfo }) {
           </h2>
 
           <Sheet>
-            <SheetTrigger className="flex mt-0  ml-20 border rounded-lg bg-sky-100 lg:hidden">
+            <SheetTrigger
+              className={`flex mt-0  ml-20 border rounded-lg bg-sky-100 lg:hidden ${
+                user ? "block" : "hidden"
+              }`}
+            >
               <MenuIcon className="font-2xl size-9 p-1  " />
             </SheetTrigger>
 
@@ -97,9 +101,8 @@ export default function Navbar({ user, ProfileInfo }) {
                   );
                 })}
               </div>
-
               <div
-                className="mt-0 mr-10"
+                className="mt-6 ml-10"
                 style={{ display: `${user ? "block" : "none"}` }}
               >
                 <Userbutton user={user} ProfileUser={ProfileInfo} />
@@ -108,7 +111,7 @@ export default function Navbar({ user, ProfileInfo }) {
           </Sheet>
         </div>
 
-        <div className="flex">
+        <div className="flex hidden lg:flex">
           <div className=" hidden lg:flex flex-row  grid gap-10 grid-cols-3 mr-5">
             {navItem.map((d) => {
               return (
@@ -136,7 +139,10 @@ export default function Navbar({ user, ProfileInfo }) {
               </span>
             </Link>
           </button>
-          <div style={{ display: `${user ? "block" : "none"}` }}>
+          <div
+            className="none lg:block"
+            style={{ display: `${user ? "block" : "none"}` }}
+          >
             <Userbutton user={user} ProfileUser={ProfileInfo} />
           </div>
         </div>

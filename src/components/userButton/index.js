@@ -19,11 +19,11 @@ export default function Userbutton({ user, ProfileUser }) {
   }
   return (
     <>
-      <div className="hidden lg:block">
+      <div className="block">
         <Popover>
           <PopoverTrigger>
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarImage src={ProfileUser?.profilePicture} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </PopoverTrigger>
@@ -31,15 +31,11 @@ export default function Userbutton({ user, ProfileUser }) {
             <div className="flex flex-col">
               <div className="flex gap-4 grid-col-gap-5 ">
                 <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage src={ProfileUser?.profilePicture} />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 <div className="block ">
-                  {/* <h1 className="text-[15px] font-semibold">
-                  {ProfileUser?.role === "candidate"
-                    ? ProfileUser?.candidate?.name
-                    : ProfileUser?.recruiter?.name}
-                </h1> */}
+                  <h1 className="text-[15px]">{ProfileUser?.fullName}</h1>
                   <h1 className="text-[15px]">{user?.email}</h1>
                 </div>
               </div>

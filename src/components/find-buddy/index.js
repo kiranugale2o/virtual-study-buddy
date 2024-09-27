@@ -98,40 +98,51 @@ export default function FindBuddy({ user, ProfileUser, buddys }) {
               <h2 className="text-[#111518] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
                 Match study buddies
               </h2>
-              <div className="flex flex-wrap">
+              <div className="flex flex-wrap justify-evenly gap-5">
                 {buddys.map((d) => {
                   return (
                     <>
-                      {d.userId === ProfileUser?.userId ? null : (
-                        <>
-                          <div className="flex items-center gap-2 bg-white lg:px-4 min-h-[72px] py-2">
-                            <div
-                              className="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
-                              style={{
-                                backgroundImage: `url(${d.profilePicture})`,
-                              }}
-                            />
+                      <Link href={`/user/${d._id}`}>
+                        {d.userId === ProfileUser?.userId ? null : (
+                          <>
+                            <div className="flex items-center gap-2 bg-white rounded-sm  border px-4 min-h-[72px] py-2">
+                              <div
+                                className="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
+                                style={{
+                                  backgroundImage: `url(${d.profilePicture})`,
+                                }}
+                              />
 
-                            <div className="flex flex-col justify-center ">
-                              <p className="text-[#111518] text-base font-medium leading-normal line-clamp-1">
-                                {d.fullName}
-                              </p>
-                              <p className="text-[#60778a] text-sm font-normal leading-normal line-clamp-2">
-                                Computer Science · 3 years experience
-                              </p>
+                              <div className="flex flex-col justify-center ">
+                                <p className="text-[#111518] text-base font-medium leading-normal line-clamp-1">
+                                  {d.fullName}
+                                </p>
+                                <p className="text-[#60778a]  text-sm  font-normal leading-normal line-clamp-2">
+                                  {d.subjectsOfInterest[0]
+                                    .split(",")
+                                    .map((subject) => {
+                                      return (
+                                        <>
+                                          {subject}
+                                          {" , "}
+                                        </>
+                                      );
+                                    })}
+                                </p>
+                              </div>
+
+                              <Button
+                                className="ml-10 bg-sky-400 "
+                                onClick={() => {
+                                  handleMatchButton(d._id);
+                                }}
+                              >
+                                Match
+                              </Button>
                             </div>
-
-                            <Button
-                              className="ml-10 bg-sky-400"
-                              onClick={() => {
-                                handleMatchButton(d._id);
-                              }}
-                            >
-                              Match
-                            </Button>
-                          </div>
-                        </>
-                      )}{" "}
+                          </>
+                        )}{" "}
+                      </Link>
                     </>
                   );
                 })}
