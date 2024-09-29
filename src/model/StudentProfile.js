@@ -39,6 +39,8 @@ const studentSchema = new mongoose.Schema({
   },
   profilePicture: {
     type: String,
+    default:
+      "https://yzlxgraclfixtcrahgup.supabase.co/storage/v1/object/public/studybuddy/public/programmer.jpg",
   },
   createdAt: {
     type: Date,

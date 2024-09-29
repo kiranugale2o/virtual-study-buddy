@@ -8,6 +8,7 @@ import DatabaseConn from "@/database";
 import { Student } from "@/model/StudentProfile";
 import { cookies } from "next/headers";
 import MatchedStudent from "@/model/MatchedStudent";
+import Chat from "@/app/chat/page";
 //fetch Current User is exit or not
 export async function currentUser() {
   const headersList = headers();
@@ -79,3 +80,14 @@ export const getMatchedStudents = async (id) => {
     return null;
   }
 };
+
+//get My chat
+export async function GetMyChat(id) {
+  await DatabaseConn();
+  const chat = await Chat.findOne({ userId: id });
+  if (chat) {
+    return JSON.parse(JSON.stringify(chat.chat));
+  } else {
+    return null;
+  }
+}

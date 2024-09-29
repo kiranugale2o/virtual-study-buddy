@@ -43,26 +43,8 @@ export default function SignUpCard() {
 
   return (
     <>
-      <div>
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com/"
-          crossorigin=""
-        />
-        <link
-          rel="stylesheet"
-          as="style"
-          onload="this.rel='stylesheet'"
-          href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
-        />
-
-        <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
-
-        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-      </div>
-
       <div
-        className="relative flex  w-full  flex-col bg-[#f8fafb]  overflow-x-hidden"
+        className="relative flex  w-full  flex-col bg-[#f8fafb]   overflow-x-hidden"
         style={{ fontFamily: 'Lexend, "Noto Sans", sans-serif' }}
       >
         <div className="layout-container w-full flex h-full grow flex-col">
@@ -85,7 +67,7 @@ export default function SignUpCard() {
                 </h2>
                 <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
                   <label className="flex flex-col min-w-40 flex-1">
-                    <p className="text-[#0e161b] text-base font-medium leading-normal pb-2">
+                    <p className="text-[#0e161b] font-semibold font-medium leading-normal pb-2">
                       Email
                     </p>
                     <input
@@ -103,7 +85,7 @@ export default function SignUpCard() {
                 </div>
                 <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
                   <label className="flex flex-col min-w-40 flex-1">
-                    <p className="text-[#0e161b] text-base font-medium leading-normal pb-2">
+                    <p className="text-[#0e161b] font-semibold font-medium leading-normal pb-2">
                       Password
                     </p>
                     <input

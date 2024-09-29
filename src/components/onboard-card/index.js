@@ -44,9 +44,9 @@ export default function OnBoardCard({ user, email }) {
       });
     }
   }
-  const getImageUrl = (bucketName, filePath) => {
+  const getImageUrl = async (bucketName, filePath) => {
     // Get the public URL for the image
-    const { data } = supabaseClient.storage
+    const { data } = await supabaseClient.storage
       .from(bucketName)
       .getPublicUrl(filePath);
     return data.publicUrl;

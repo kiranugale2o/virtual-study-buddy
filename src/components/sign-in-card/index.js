@@ -36,7 +36,7 @@ export default function SignInCard() {
         if (res.success) {
           Cookies.set("study-buddy_token", res.token);
           toast.success(res.message);
-          router.push("/");
+          router.refresh("/sign-in");
         } else {
           toast.error(res.message);
         }

@@ -40,7 +40,7 @@ export default function MyBuddyCard({ matchedBuddy }) {
       <div className="layout-content-container block lg:flex lg:flex-col lg:px-20 lg:py-10">
         <div className="flex flex-wrap justify-between gap-3 p-4">
           <div className="flex min-w-72 flex-col gap-3">
-            <p className="text-[#111418] tracking-light text-[32px] font-bold leading-tight">
+            <p className="text-white tracking-light text-[32px] font-bold leading-tight">
               My Buddies
             </p>
             <p className="text-[#637588] text-sm font-normal leading-normal">
@@ -50,16 +50,16 @@ export default function MyBuddyCard({ matchedBuddy }) {
         </div>
         <hr />
 
-        <h1 className="text-2xl font-semibold px-5 py-5 mx-auto">
+        <h1 className="text-2xl font-semibold  lg:px-5 py-5 ">
           Your Matched Buddies
         </h1>
-        <div className="flex gap-3 p-3 flex-wrap pr-4">
+        <div className="flex gap-3 p-2 lg:p-3 flex-wrap lg:pr-4">
           {matchedBuddy && matchedBuddy.length > 0
             ? matchedBuddy.map((data) => {
                 return (
                   <>
                     <Link href={`/user/${data._id}`}>
-                      <div className="mt-5 border hover:bg-sky-100 hover:shadow-4xl rounded-lg shadow-sm flex items-center gap-4 justify-between w-[350px] lg:w-[500px]  bg-white px-4 min-h-[72px] py-2 ">
+                      <div className="mt-5 border text-black bg-gray-100 hover:bg-sky-200 hover:text-blackhover:shadow-lg rounded-lg shadow-sm flex items-center gap-4 justify-between w-[350px] lg:w-[500px]   px-4 min-h-[72px] py-2 ">
                         <div className=" flex items-center gap-4">
                           <div
                             className="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
@@ -68,10 +68,10 @@ export default function MyBuddyCard({ matchedBuddy }) {
                             }}
                           />
                           <div className="flex flex-col justify-center">
-                            <p className="text-[#111418] text-base font-medium leading-normal line-clamp-1">
+                            <p className=" text-base font-medium leading-normal line-clamp-1">
                               {data.fullName}
                             </p>
-                            <p className="text-[#637588] text-sm font-normal leading-normal line-clamp-2">
+                            <p className=" text-sm font-normal leading-normal line-clamp-2">
                               {data.email}
                             </p>
                           </div>
