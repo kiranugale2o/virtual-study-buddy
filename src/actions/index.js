@@ -8,7 +8,9 @@ import DatabaseConn from "@/database";
 import { Student } from "@/model/StudentProfile";
 import { cookies } from "next/headers";
 import MatchedStudent from "@/model/MatchedStudent";
-import Chat from "@/app/chat/page";
+import { Notes } from "@/model/Notes";
+import { Favourite } from "@/model/Favourites";
+
 //fetch Current User is exit or not
 export async function currentUser() {
   const headersList = headers();
@@ -81,12 +83,53 @@ export const getMatchedStudents = async (id) => {
   }
 };
 
-//get My chat
-export async function GetMyChat(id) {
-  await DatabaseConn();
-  const chat = await Chat.findOne({ userId: id });
-  if (chat) {
-    return JSON.parse(JSON.stringify(chat.chat));
+//get All Notes
+export async function GetAllNotes(id) {
+  const notes = await Notes.find({ senderId: { $ne: id } }).populate(
+    "senderId"
+  );
+
+  if (notes) {
+    return JSON.parse(JSON.stringify(notes));
+  } else {
+    return null;
+  }
+}
+
+//get Single Notes
+export async function GetSingleNote(id) {
+  const notes = await Notes.findById(id).populate("senderId");
+
+  if (notes) {
+    return JSON.parse(JSON.stringify(notes));
+  } else {
+    return null;
+  }
+}
+
+//get MyPosted Notes
+export async function GetMyPostedNotes(id) {
+  const notes = await Notes.find({ senderId: id }).populate("senderId");
+
+  if (notes) {
+    return JSON.parse(JSON.stringify(notes));
+  } else {
+    return null;
+  }
+}
+
+//get MyFavourites Notes
+export async function GetFavouritesNotes(id) {
+  const notes = await Favourite.findOne({ userId: id }).populate({
+    path: "notesId",
+    populate: {
+      path: "senderId", // Populate senderId within each note
+      model: "Student", // The model to populate from
+    },
+  });
+
+  if (notes) {
+    return JSON.parse(JSON.stringify(notes.notesId));
   } else {
     return null;
   }

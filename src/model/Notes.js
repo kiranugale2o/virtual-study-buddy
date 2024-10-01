@@ -7,7 +7,10 @@ const NotesSchema = new mongoose.Schema({
     ref: "Student",
   },
   title: String,
-  content: String,
+  content: {
+    type: String,
+    default: ".............",
+  },
   img: String,
   video: String,
   postingTime: String,

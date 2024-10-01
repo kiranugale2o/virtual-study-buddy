@@ -23,8 +23,8 @@ export default function OnBoardCard({ user, email }) {
     console.log(file);
   }
   async function handleFileUploadToSupabase() {
-    // if (!supabaseClient || !file) return;
-    alert();
+    if (!supabaseClient || !file) return;
+
     const { data, error } = await supabaseClient.storage
       .from("studybuddy")
       .upload(`/public/${file.name}`, file, {

@@ -25,35 +25,35 @@ export default function BuddyProfileCard({ ProfileUser, SearchBuddy }) {
                   </p>
                 </div>
               </div>
-              <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto">
-                <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-sky-400 hover:bg-white hover:text-black text-black text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto">
+              <div className="flex w-full px-3 lg:max-w-[480px] gap-3 lg:@[480px]:w-auto">
+                <button className="flex  cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-sky-400 hover:bg-white hover:text-black text-black text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto">
                   <span className="truncate">Send message</span>
                 </button>
-                <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-sky-400 text-white hover:bg-white hover:text-black text-black text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto">
+                <button className="flex  cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-sky-400 text-white hover:bg-white hover:text-black text-black text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto">
                   <span className="truncate">Video Call</span>
                 </button>
               </div>
             </div>
           </div>
-          <h2 className=" text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
+          <h2 className=" text-[22px] font-bold leading-tight tracking-[-0.015em] px-6 lg:pb-3 pt-5">
             Proficient in
           </h2>
-          <div className="flex gap-3 p-3 flex-wrap pr-4">
+          <div className="flex gap-3 lg:px-0 px-6 ml-5 py-5 flex-wrap lg:pr-4">
             {SearchBuddy?.subjectsOfInterest[0].split(",").map((d, i) => {
               return (
                 <div
                   key={i}
-                  className="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-gray-100 text-black pl-4 pr-4"
+                  className="flex  h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-gray-100 text-black pl-4 pr-4"
                 >
-                  <p className=" text-sm font-medium leading-normal">{d}</p>
+                  <p className="px-5 text-sm font-medium leading-normal">{d}</p>
                 </div>
               );
             })}
           </div>
-          <h2 className=" text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
+          <h2 className=" text-[22px] font-bold leading-tight tracking-[-0.015em] px-5 pb-3 pt-5">
             Availability
           </h2>
-          <div className="flex gap-3 p-3 flex-wrap pr-4">
+          <div className="flex gap-3 py-2 px-5 flex-wrap pr-4">
             {SearchBuddy?.studyTime[0].split(",").map((d, i) => {
               return (
                 <div
@@ -65,10 +65,10 @@ export default function BuddyProfileCard({ ProfileUser, SearchBuddy }) {
               );
             })}
           </div>
-          <h2 className=" text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
+          <h2 className=" text-[22px] font-bold leading-tight tracking-[-0.015em] px-5 pb-3 pt-5">
             Bio
           </h2>
-          <p className=" text-[18px] font-normal leading-normal  pb-3 pt-1 px-4">
+          <p className=" text-[18px] flex flex-wrap w-[350px] mx-auto lg:mx-0 lg:w-full  font-normal leading-normal  pb-3 pt-1 lg:px-4">
             {SearchBuddy?.fullName} is a {SearchBuddy?.CurrentEducation} student
             at {SearchBuddy?.college}, with a strong interest in programming
             languages like{" "}

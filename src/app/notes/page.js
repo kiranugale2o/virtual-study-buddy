@@ -1,4 +1,10 @@
-import { currentUser, fetchUser } from "@/actions";
+import {
+  currentUser,
+  fetchUser,
+  GetAllNotes,
+  GetFavouritesNotes,
+  GetMyPostedNotes,
+} from "@/actions";
 import NotesComponent from "@/components/Notes";
 import { redirect } from "next/navigation";
 
@@ -10,5 +16,16 @@ export default async function NotesPage() {
   if (user && !ProfileUser?._id) {
     redirect("/onboard");
   }
-  return <NotesComponent />;
+
+  const Notes = await GetAllNotes(ProfileUser?._id);
+  const myNotes = await GetMyPostedNotes(ProfileUser?._id);
+  const favouriteNotes = await GetFavouritesNotes(ProfileUser?._id);
+  return (
+    <NotesComponent
+      ProfileUser={ProfileUser}
+      Notes={Notes}
+      myNotes={myNotes}
+      favouriteNotes={favouriteNotes}
+    />
+  );
 }
