@@ -192,8 +192,8 @@ body {
   }
   body {
     @apply bg-background text-foreground;
-    background-color: black;
-    color: white;
+    /* background-color: black;
+    color: white; */
   }
 }
 
