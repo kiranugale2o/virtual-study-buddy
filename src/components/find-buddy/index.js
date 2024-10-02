@@ -59,7 +59,7 @@ export default function FindBuddy({ user, ProfileUser, buddys }) {
                         return (
                           <>
                             <div className="flex flex-wrap">
-                              <div className="flex bg-white-100 text-black h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#f0f2f5] pl-4 pr-4">
+                              <div className="flex  text-black h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#f0f2f5] pl-4 pr-4">
                                 <p className=" text-sm font-medium leading-normal">
                                   {time}
                                 </p>
@@ -83,7 +83,7 @@ export default function FindBuddy({ user, ProfileUser, buddys }) {
                         return (
                           <>
                             <div className="flex gap-3 p-3 flex-wrap pr-4">
-                              <div className="flex bg-white h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl text-black pl-4 pr-4">
+                              <div className="flex bg-[#f0f2f5] h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl text-black pl-4 pr-4">
                                 <p className=" text-sm font-medium leading-normal ">
                                   {subject}
                                 </p>
@@ -100,13 +100,13 @@ export default function FindBuddy({ user, ProfileUser, buddys }) {
               <h2 className=" text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
                 Match study buddies
               </h2>
-              <div className="flex flex-wrap justify-center gap-5">
+              <div className="flex lg:gap-5 p-2 lg:p-3 flex-wrap gap-2 lg:pr-4">
                 {buddys.map((d) => {
                   return (
                     <>
                       {d.userId === ProfileUser?.userId ? null : (
                         <>
-                          <div className="flex items-center gap-2  bg-white rounded-sm  border px-4 min-h-[72px] py-2">
+                          <div className="flex items-center gap-2  bg-gray-100 rounded-sm  border px-4 min-h-[72px] py-2">
                             <div
                               className="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
                               style={{
