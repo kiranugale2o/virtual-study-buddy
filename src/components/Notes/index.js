@@ -156,7 +156,8 @@ export default function NotesComponent({
     })
       .then((res) => res.json())
       .then((res) => {
-        alert(res.message); // Show success/error message
+        alert(res.message);
+        router.refresh("/notes"); // Show success/error message
       });
   }
 
@@ -179,7 +180,24 @@ export default function NotesComponent({
 
   //Function to Remove Notes from Favourites
   function removeFavourites(id) {
-    //
+    const data = {
+      id: ProfileUser._id,
+      notesId: id,
+    };
+
+    fetch("/api/removeFavouriteNote", {
+      method: "POST",
+      body: JSON.stringify({ data }),
+    }).then((res) =>
+      res.json().then((res) => {
+        if (res.success) {
+          alert(res.message);
+          router.refresh("/notes");
+        } else {
+          alert(res.message);
+        }
+      })
+    );
   }
   return (
     <>
@@ -353,7 +371,7 @@ export default function NotesComponent({
                     <div className="flex justify-between">
                       <div className="flex gap-4 py-2">
                         <Star
-                          className="text-red-500"
+                          className="text-red-500 hover:bg-black hover:text-white hover:border rounded-lg "
                           onClick={() => addFavouritesNotes(d._id)}
                         />
                       </div>
