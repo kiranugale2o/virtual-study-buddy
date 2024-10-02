@@ -199,13 +199,21 @@ export default function NotesComponent({
       })
     );
   }
+
+  function PostButtonDisabledHandle() {
+    if (currentNoteData.title === "" || currentNoteData.content === "") {
+      return true;
+    } else {
+      return false;
+    }
+  }
   return (
     <>
       <Tabs defaultValue="allnotes">
         <div className="flex flex-col w-full item-center p-5">
           <div className="flex w-full px-10 py-5 justify-between">
             <h1 className="text-3xl font-semibold">Notes</h1>
-            <Button variant="secondary" onClick={() => setDialogbtn(true)}>
+            <Button onClick={() => setDialogbtn(true)} className="bg-sky-400">
               Post Notes
             </Button>
 
@@ -247,6 +255,7 @@ export default function NotesComponent({
                   <form onSubmit={handleNote} className="flex flex-col gap-4">
                     <Input
                       value={currentNoteData.title}
+                      required
                       placeholder="Enter Title Of Note"
                       onChange={(e) => {
                         setCurrentNoteData((prevData) => ({
@@ -257,6 +266,7 @@ export default function NotesComponent({
                     />
                     <Textarea
                       className="h-[200px]"
+                      required
                       value={currentNoteData.content}
                       placeholder="Enter Note........."
                       onChange={(e) => {
@@ -288,8 +298,9 @@ export default function NotesComponent({
                       />
                     </div>
                     <Button
+                      disabled={PostButtonDisabledHandle()}
                       type="submit"
-                      className="bg-black text-white w-full"
+                      className="bg-black  w-full"
                     >
                       POST
                     </Button>
@@ -307,7 +318,7 @@ export default function NotesComponent({
               <Button
                 disabled={videoProgress === 100}
                 onClick={() => setVideoProgressDialog(false)}
-                className="bg-black text-white w-[80px] mr-2"
+                className="bg-black  w-[80px] mr-2"
               >
                 Close
               </Button>
@@ -316,7 +327,7 @@ export default function NotesComponent({
 
           <hr />
           <div className="flex justify-start lg:px-5 py-5">
-            <TabsList className="bg-black">
+            <TabsList className="">
               <TabsTrigger value="allnotes" className="text-sky-400">
                 <NotebookPen />
                 Notes
@@ -339,7 +350,7 @@ export default function NotesComponent({
               {Notes.map((d, i) => (
                 <Card
                   key={i}
-                  className="w-[350px] lg:w-[380px] p-0 bg-black text-white"
+                  className="w-[350px] lg:w-[380px] bg-sky-50 p-0  "
                 >
                   <CardHeader className="lg:p-2">
                     <CardTitle>
@@ -371,14 +382,11 @@ export default function NotesComponent({
                     <div className="flex justify-between">
                       <div className="flex gap-4 py-2">
                         <Star
-                          className="text-red-500 hover:bg-black hover:text-white hover:border rounded-lg "
+                          className="text-red-500 hover: hover: hover:border rounded-lg "
                           onClick={() => addFavouritesNotes(d._id)}
                         />
                       </div>
-                      <Button
-                        onClick={() => router.push(`/notes/${d._id}`)}
-                        variant="secondary"
-                      >
+                      <Button onClick={() => router.push(`/notes/${d._id}`)}>
                         View More
                       </Button>
                     </div>
@@ -396,7 +404,7 @@ export default function NotesComponent({
                 favouriteNotes.map((d, i) => (
                   <Card
                     key={i}
-                    className="w-[350px] lg:w-[380px] p-0 bg-black text-white"
+                    className="w-[350px] lg:w-[380px] bg-sky-50 p-0  "
                   >
                     <CardHeader className="lg:p-2">
                       <CardTitle>
@@ -434,10 +442,7 @@ export default function NotesComponent({
                             }}
                           />
                         </div>
-                        <Button
-                          onClick={() => router.push(`/notes/${d._id}`)}
-                          variant="secondary"
-                        >
+                        <Button onClick={() => router.push(`/notes/${d._id}`)}>
                           View More
                         </Button>
                       </div>
@@ -461,7 +466,7 @@ export default function NotesComponent({
                   {myNotes.map((d, i) => (
                     <Card
                       key={i}
-                      className="w-[350px] lg:w-[380px] p-0 bg-black text-white"
+                      className="w-[350px] lg:w-[380px] bg-sky-50 p-0  "
                     >
                       <CardHeader className="lg:p-2">
                         <CardTitle>
@@ -486,6 +491,7 @@ export default function NotesComponent({
                       <CardContent>
                         <div className="flex flex-col py-2">
                           <div className="text-[24px]">{d.title}</div>
+
                           <div className="text-[16px] h-[50px] leading-normal line-clamp-2 text-slate-400">
                             {d.content}
                           </div>
@@ -503,7 +509,6 @@ export default function NotesComponent({
                           </div>
                           <Button
                             onClick={() => router.push(`/notes/${d._id}`)}
-                            variant="secondary"
                           >
                             View More
                           </Button>
