@@ -14,5 +14,5 @@ export default async function MyBuddyPage() {
 
   const data = await getMatchedStudents(ProfileUser?._id);
 
-  return <MyBuddyCard matchedBuddy={data} />;
+  return <MyBuddyCard matchedBuddy={data} ProfileUser={ProfileUser} />;
 }
