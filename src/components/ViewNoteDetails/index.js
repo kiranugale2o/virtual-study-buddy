@@ -1,7 +1,7 @@
 export default function ViewNoteDetails({ notes }) {
   return (
     <>
-      <div className="flex w-full flex-col item-center justify-between lg:p-20">
+      <div className="flex  flex-col lg:p-20 ">
         <div className="text-3xl font-semibold p-3 ">Notes In Details</div>
         <hr />
         <div className="flex flex-col justify-between p-5">
@@ -23,6 +23,9 @@ export default function ViewNoteDetails({ notes }) {
           </div>
           <br />
           <div className="flex flex-col border w-full  rounded-lg shadow-md p-4 bg-white text-black">
+            <div className="py-10 px-5 text-3xl font-semibold">
+              #{notes.title}#
+            </div>
             {notes.img !== "" ? (
               <div className="w-full lg:h-[460px] p-5 mx-auto">
                 <img
@@ -32,11 +35,11 @@ export default function ViewNoteDetails({ notes }) {
                 />
               </div>
             ) : null}
-            <div className="font-serif  whitespace-pre-wrap lg:whitespace-pre text-[20px]">
+            <div className="font-serif  whitespace-pre-wrap  lg:whitespace-pre-wrap text-[20px]">
               {notes.content}
             </div>
             {notes.video !== "" ? (
-              <div className="w-full lg:h-[460px] p-5 mx-auto">
+              <div className="w-full aspect-video lg:h-[460px] p-5 mx-auto">
                 <video className="lg:h-[400px] lg:w-full" controls>
                   <source src={notes.video} type="video/mp4" />
                   Your browser does not support the video tag.
