@@ -6,12 +6,33 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function MyBuddyCard({ matchedBuddy }) {
+export default function MyBuddyCard({ matchedBuddy, ProfileUser }) {
   console.log(matchedBuddy);
   const router = useRouter();
   useEffect(() => {
     router.refresh("/buddy/mybuddy");
   }, []);
+
+  function RemoveBuddy(id) {
+    const data = {
+      userId: ProfileUser?._id,
+      buddyId: id,
+    };
+
+    fetch("/api/removematchedbuddy", {
+      method: "DELETE",
+      body: JSON.stringify({ data }),
+    }).then((res) =>
+      res.json().then((res) => {
+        if (res.success) {
+          alert(res.message);
+          router.refresh("/notes/mybuddy");
+        } else {
+          alert(res.message);
+        }
+      })
+    );
+  }
   return (
     <>
       <div
@@ -40,7 +61,7 @@ export default function MyBuddyCard({ matchedBuddy }) {
       <div className="layout-content-container block lg:flex lg:flex-col lg:px-20 lg:py-10">
         <div className="flex flex-wrap justify-between gap-3 p-4">
           <div className="flex min-w-72 flex-col gap-3">
-            <p className="text-white tracking-light text-[32px] font-bold leading-tight">
+            <p className=" tracking-light text-[32px] font-bold leading-tight">
               My Buddies
             </p>
             <p className="text-[#637588] text-sm font-normal leading-normal">
@@ -58,26 +79,37 @@ export default function MyBuddyCard({ matchedBuddy }) {
             ? matchedBuddy.map((data) => {
                 return (
                   <>
-                    <Link href={`/user/${data._id}`}>
-                      <div className="mt-5 border text-black bg-gray-100 hover:bg-sky-200 hover:text-blackhover:shadow-lg rounded-lg shadow-sm flex items-center gap-4 justify-between w-[350px] lg:w-[500px]   px-4 min-h-[72px] py-2 ">
-                        <div className=" flex items-center gap-4">
-                          <div
-                            className="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
-                            style={{
-                              backgroundImage: `url(${data.profilePicture})`,
-                            }}
-                          />
-                          <div className="flex flex-col justify-center">
-                            <p className=" text-base font-medium leading-normal line-clamp-1">
-                              {data.fullName}
-                            </p>
-                            <p className=" text-sm font-normal leading-normal line-clamp-2">
-                              {data.email}
-                            </p>
-                          </div>
+                    <div className="mt-5 border text-black bg-gray-100  hover:text-blackhover:shadow-lg rounded-lg shadow-sm block lg:flex gap-6 lg:gap-0 items-center gap-4 justify-between w-[350px] lg:w-[500px]   px-4 min-h-[72px] py-2 ">
+                      <div className=" flex items-center gap-4 ">
+                        <div
+                          className="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
+                          style={{
+                            backgroundImage: `url(${data.profilePicture})`,
+                          }}
+                        />
+                        <div className="flex flex-col justify-center lg:w-[180px] whitespace-pre-wrap">
+                          <p className=" text-base font-medium leading-normal line-clamp-1">
+                            {data.fullName}
+                          </p>
+                          <p className=" text-sm font-normal leading-normal line-clamp-2">
+                            {data.email}
+                          </p>
                         </div>
                       </div>
-                    </Link>
+                      <div className="flex gap-3 mt-4 mr-2 mx-auto  lg:ml-0 lg:mt-0">
+                        <Link href={`/user/${data._id}`}>
+                          <Button className="bg-sky-300">View</Button>
+                        </Link>
+                        <Button
+                          className="bg-red-500"
+                          onClick={() => {
+                            RemoveBuddy(data._id);
+                          }}
+                        >
+                          Remove Buddy
+                        </Button>
+                      </div>
+                    </div>
                   </>
                 );
               })
