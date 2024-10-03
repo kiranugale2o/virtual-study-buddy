@@ -2,6 +2,16 @@
 
 import Link from "next/link";
 import { Button } from "../ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
 
 export default function FindBuddy({ user, ProfileUser, buddys }) {
   const ar = [1, 2, 2, 2, 2, 2, 2, 3, 2];
@@ -132,14 +142,51 @@ export default function FindBuddy({ user, ProfileUser, buddys }) {
                                 </p>
                               </div>
                             </Link>
-                            <Button
-                              className=" bg-sky-400 "
-                              onClick={() => {
-                                handleMatchButton(d._id);
-                              }}
-                            >
-                              Match
-                            </Button>
+                            <Dialog>
+                              <DialogTrigger asChild>
+                                <Button className=" bg-sky-400 ">Match</Button>
+                              </DialogTrigger>
+
+                              <DialogContent className="sm:max-w-[425px]">
+                                <DialogHeader>
+                                  <DialogTitle className="text-2xl text-sky-500">
+                                    StudyBuddy
+                                  </DialogTitle>
+                                  <div className="text-[18px]">
+                                    You Want To Match <b>{d.fullName}</b> that
+                                    Learn{" "}
+                                    {d.subjectsOfInterest[0]
+                                      .split(",")
+                                      .map((subject) => {
+                                        return (
+                                          <>
+                                            {subject}
+                                            {" , "}
+                                          </>
+                                        );
+                                      })}
+                                    {"Etc. "}
+                                    this Subject !
+                                  </div>
+                                </DialogHeader>
+
+                                <DialogFooter className="gap-5 flex flex-row mx-auto lg:mx-0 lg:gap-0">
+                                  <DialogClose asChild>
+                                    <Button type="submit">NO</Button>
+                                  </DialogClose>
+                                  <DialogClose asChild>
+                                    <Button
+                                      className="bg-sky-500 hover:bg-sky-800"
+                                      onClick={() => {
+                                        handleMatchButton(d._id);
+                                      }}
+                                    >
+                                      YES
+                                    </Button>
+                                  </DialogClose>
+                                </DialogFooter>
+                              </DialogContent>
+                            </Dialog>
                           </div>
                         </>
                       )}{" "}

@@ -45,7 +45,7 @@ export const studentFormFields = [
   },
   {
     label: "Profile Picture",
-    name: "ProfilePicture",
+    name: "profilePicture",
     placeholder: "Enter your location",
     contentType: "file",
   },

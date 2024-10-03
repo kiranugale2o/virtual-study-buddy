@@ -2,11 +2,26 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Butcherman } from "next/font/google";
 import { Button } from "../ui/button";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
 export default function MyBuddyCard({ matchedBuddy, ProfileUser }) {
+  const [removeDialog, setRemoveDialog] = useState(false);
+
   console.log(matchedBuddy);
   const router = useRouter();
   useEffect(() => {
@@ -100,14 +115,40 @@ export default function MyBuddyCard({ matchedBuddy, ProfileUser }) {
                         <Link href={`/user/${data._id}`}>
                           <Button className="bg-sky-300">View</Button>
                         </Link>
-                        <Button
-                          className="bg-red-500"
-                          onClick={() => {
-                            RemoveBuddy(data._id);
-                          }}
-                        >
-                          Remove Buddy
-                        </Button>
+
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button className="bg-red-500">Remove buddy</Button>
+                          </DialogTrigger>
+
+                          <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                              <DialogTitle className="text-2xl text-sky-500">
+                                StudyBuddy
+                              </DialogTitle>
+                              <div className="text-[18px]">
+                                You Want To Remove <b>{data.fullName}</b> From
+                                your Matched Buddies !
+                              </div>
+                            </DialogHeader>
+
+                            <DialogFooter className="gap-5 flex flex-row mx-auto lg:mx-0 lg:gap-0">
+                              <DialogClose asChild>
+                                <Button type="submit">NO</Button>
+                              </DialogClose>
+                              <DialogClose asChild>
+                                <Button
+                                  className="bg-red-500 hover:bg-red-400"
+                                  onClick={() => {
+                                    RemoveBuddy(data._id);
+                                  }}
+                                >
+                                  YES
+                                </Button>
+                              </DialogClose>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
                       </div>
                     </div>
                   </>

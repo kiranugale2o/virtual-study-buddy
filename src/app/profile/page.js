@@ -1,4 +1,9 @@
-import { currentUser, fetchUser, GetMyPostedNotes } from "@/actions";
+import {
+  currentUser,
+  fetchUser,
+  getMatchedStudents,
+  GetMyPostedNotes,
+} from "@/actions";
 import ProfilePage from "@/components/Profile";
 import { redirect } from "next/navigation";
 
@@ -13,5 +18,12 @@ export default async function Profile() {
   }
 
   const myNotes = await GetMyPostedNotes(ProfileUser?._id);
-  return <ProfilePage ProfileUser={ProfileUser} myNotes={myNotes} />;
+  const matchedBuddy = await getMatchedStudents(ProfileUser?._id);
+  return (
+    <ProfilePage
+      ProfileUser={ProfileUser}
+      myNotes={myNotes}
+      matchedBuddy={matchedBuddy}
+    />
+  );
 }

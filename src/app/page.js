@@ -1,4 +1,5 @@
 import { currentUser, fetchUser } from "@/actions";
+import HomePage from "@/components/Home";
 import Image from "next/image";
 
 import { redirect } from "next/navigation";
@@ -13,5 +14,5 @@ export default async function Home() {
     redirect("/onboard");
   }
 
-  return <h1>home new</h1>;
+  return <HomePage />;
 }

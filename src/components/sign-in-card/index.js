@@ -115,6 +115,7 @@ export default function SignInCard() {
                       Email
                     </p>
                     <input
+                      type="email"
                       placeholder="Enter your email"
                       className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#0e161b] focus:outline-0 focus:ring-0 border-none bg-[#e8eef3] focus:border-none h-14 placeholder:text-[#507a95] p-4 text-base font-normal leading-normal"
                       defaultValue=""
@@ -133,6 +134,7 @@ export default function SignInCard() {
                       Password
                     </p>
                     <input
+                      type="password"
                       placeholder="Enter your password"
                       className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#0e161b] focus:outline-0 focus:ring-0 border-none bg-[#e8eef3] focus:border-none h-14 placeholder:text-[#507a95] p-4 text-base font-normal leading-normal"
                       defaultValue=""

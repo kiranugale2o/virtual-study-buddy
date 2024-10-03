@@ -18,19 +18,18 @@ export default function CommonForm({
   return (
     <>
       <div className="flex flex-col w-full justify-between item-center ">
-        <div className="w-full p-10">
-          <form action={buttonAction} className=" grid gap-5 grid-row-4 w-full">
+        <div className="w-full p-5 lg:p-10">
+          <form action={buttonAction} className="grid gap-5 grid-row-4 w-full">
             {formData.map((d) => {
               return (
                 <>
                   {d.contentType === "file" ? (
-                    <>
+                    <div className="overscroll-y-contain">
                       <Label className="input-group-text" htmlFor="picture">
                         Profile Picture
                       </Label>
                       <Input
                         id="picture"
-                        required
                         key={d.label}
                         className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#111517] focus:outline-0 focus:ring-0 border-none bg-[#f0f3f4] focus:border-none h-14 placeholder:text-[#647987] p-4 text-base font-normal leading-normal "
                         type={d.contentType}
@@ -39,7 +38,7 @@ export default function CommonForm({
                         onChange={(e) => handleFileChange(e)}
                         placeholder={d.placeholder}
                       />
-                    </>
+                    </div>
                   ) : (
                     <>
                       <Label

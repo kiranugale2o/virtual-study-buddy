@@ -2,10 +2,14 @@
 
 import {
   Dialog,
+  DialogClose,
   DialogContent,
+  DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+  DialogTrigger,
+} from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -381,10 +385,37 @@ export default function NotesComponent({
                     </div>
                     <div className="flex justify-between">
                       <div className="flex gap-4 py-2">
-                        <Star
-                          className="text-red-500 hover: hover: hover:border rounded-lg "
-                          onClick={() => addFavouritesNotes(d._id)}
-                        />
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Star className="text-red-500 hover: hover: hover:border rounded-lg " />
+                          </DialogTrigger>
+
+                          <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                              <DialogTitle className="text-2xl text-sky-500">
+                                StudyBuddy
+                              </DialogTitle>
+                              <div className="text-[18px]">
+                                You Want To Add This Notes In your Favourites
+                                List !
+                              </div>
+                            </DialogHeader>
+
+                            <DialogFooter className="gap-5 flex flex-row mx-auto lg:mx-0 lg:gap-0">
+                              <DialogClose asChild>
+                                <Button type="submit">NO</Button>
+                              </DialogClose>
+                              <DialogClose asChild>
+                                <Button
+                                  onClick={() => addFavouritesNotes(d._id)}
+                                  className="bg-red-500 hover:bg-red-400"
+                                >
+                                  ADD
+                                </Button>
+                              </DialogClose>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
                       </div>
                       <Button onClick={() => router.push(`/notes/${d._id}`)}>
                         View More
@@ -435,12 +466,39 @@ export default function NotesComponent({
                       </div>
                       <div className="flex justify-between">
                         <div className="flex gap-4 py-2">
-                          <Trash2
-                            className="text-red-600"
-                            onClick={() => {
-                              removeFavourites(d._id);
-                            }}
-                          />
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Trash2 className="text-red-600" />
+                            </DialogTrigger>
+
+                            <DialogContent className="sm:max-w-[425px]">
+                              <DialogHeader>
+                                <DialogTitle className="text-2xl text-sky-500">
+                                  StudyBuddy
+                                </DialogTitle>
+                                <div className="text-[18px]">
+                                  You Want To Remove This Notes In your
+                                  Favourites List !
+                                </div>
+                              </DialogHeader>
+
+                              <DialogFooter className="gap-5 flex flex-row mx-auto lg:mx-0 lg:gap-0">
+                                <DialogClose asChild>
+                                  <Button type="submit">NO</Button>
+                                </DialogClose>
+                                <DialogClose asChild>
+                                  <Button
+                                    onClick={() => {
+                                      removeFavourites(d._id);
+                                    }}
+                                    className="bg-red-500 hover:bg-red-400"
+                                  >
+                                    Remove
+                                  </Button>
+                                </DialogClose>
+                              </DialogFooter>
+                            </DialogContent>
+                          </Dialog>
                         </div>
                         <Button onClick={() => router.push(`/notes/${d._id}`)}>
                           View More
@@ -498,14 +556,38 @@ export default function NotesComponent({
                         </div>
                         <div className="flex justify-between">
                           <div className="flex gap-3">
-                            <Button
-                              variant="destructive"
-                              onClick={() => {
-                                deleteMyNotes(d._id);
-                              }}
-                            >
-                              Delete
-                            </Button>
+                            <Dialog>
+                              <DialogTrigger asChild>
+                                <Button variant="destructive">Delete</Button>
+                              </DialogTrigger>
+
+                              <DialogContent className="sm:max-w-[425px]">
+                                <DialogHeader>
+                                  <DialogTitle className="text-2xl text-sky-500">
+                                    StudyBuddy
+                                  </DialogTitle>
+                                  <div className="text-[18px]">
+                                    You Want To Delete This Notes !
+                                  </div>
+                                </DialogHeader>
+
+                                <DialogFooter className="gap-5 flex flex-row mx-auto lg:mx-0 lg:gap-0">
+                                  <DialogClose asChild>
+                                    <Button type="submit">NO</Button>
+                                  </DialogClose>
+                                  <DialogClose asChild>
+                                    <Button
+                                      onClick={() => {
+                                        deleteMyNotes(d._id);
+                                      }}
+                                      className="bg-red-500 hover:bg-red-400"
+                                    >
+                                      Delete
+                                    </Button>
+                                  </DialogClose>
+                                </DialogFooter>
+                              </DialogContent>
+                            </Dialog>
                           </div>
                           <Button
                             onClick={() => router.push(`/notes/${d._id}`)}
