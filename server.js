@@ -14,6 +14,7 @@ app.prepare().then(() => {
 
   const activeUsers = new Set(); // Use a Set to store unique active user IDs
 
+  io.setMaxListeners(30);
   // Handle Socket.IO connections
   io.on("connection", (socket) => {
     console.log("New client connected", socket.id);
