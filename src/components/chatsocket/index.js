@@ -65,9 +65,8 @@ const ChatPage = ({ user, ProfileUser, buddyId }) => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const pusher = new Pusher("4eaa06251960e1a80490", {
-      cluster: "ap2",
-    });
+    // Initialize socket connection on the client side
+    socket = io();
 
     const channel = pusher.subscribe("chat");
     channel.bind("message", (data) => {

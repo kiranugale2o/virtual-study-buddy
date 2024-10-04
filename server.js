@@ -14,6 +14,7 @@ app.prepare().then(() => {
 
   const activeUsers = new Set(); // Use a Set to store unique active user IDs
 
+  io.setMaxListeners(30);
   // Handle Socket.IO connections
   io.on("connection", (socket) => {
     console.log("New client connected", socket.id);
@@ -30,14 +31,23 @@ app.prepare().then(() => {
       io.emit("message", msg); // Broadcast message to all clients
     });
 
-    socket.on("disconnect", () => {
-      console.log("User disconnected:", socket.id);
+  //   socket.on("disconnect", () => {
+  //     console.log("User disconnected:", socket.id);
 
-      // Remove user from active users
-      activeUsers.delete(socket.id);
+  //     // Remove user from active users
+  //     activeUsers.delete(socket.id);
+  //     io.emit("activeUsers", Array.from(activeUsers)); // Broadcast updated active users to all clients
+  //   });
+  // });
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected:', socket.id);
+        // Remove listeners for this socket
+       
+       activeUsers.delete(socket.id);
       io.emit("activeUsers", Array.from(activeUsers)); // Broadcast updated active users to all clients
+
     });
-  });
 
   // Serve Next.js pages
   expressApp.all("*", (req, res) => {
