@@ -60,6 +60,7 @@ import React, { useEffect, useState } from "react";
 
 import { ChevronsLeftRightEllipsisIcon } from "lucide-react";
 import Pusher from "pusher-js";
+import axios from "axios";
 
 const ChatPage = ({ user, ProfileUser, buddyId }) => {
   const [message, setMessage] = useState("");
@@ -87,19 +88,19 @@ const ChatPage = ({ user, ProfileUser, buddyId }) => {
 
   const sendMessage = () => {
     if (message.trim()) {
-      fetch("/api/sendMessage", {
-        method: "POST",
-        body: JSON.stringify({
+      axios
+        .post("/api/sendMessage", {
           message,
           senderId: ProfileUser?._id,
           receiverId: buddyId,
-        }),
-        headers: { "Content-Type": "application/json" },
-      }).then((res) =>
-        res.json().then((res) => {
-          alert(res.message);
         })
-      );
+        .then((response) => {
+          alert(response.data.message);
+        })
+        .catch((error) => {
+          console.error("Error sending message:", error);
+          alert("An error occurred while sending the message."); // Optional error handling
+        });
       setMessage("");
     }
   };
