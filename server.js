@@ -25,7 +25,7 @@ app.prepare().then(() => {
       io.emit("activeUsers", Array.from(activeUsers)); // Update all clients with active users
     });
     // Handle incoming messages
-    socket.on("message", (msg) => {
+    socket.on("sendmessage", (msg) => {
       console.log("Message received:", msg);
       io.emit("message", msg); // Broadcast message to all clients
     });

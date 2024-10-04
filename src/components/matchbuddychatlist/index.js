@@ -38,37 +38,33 @@ export default function ChatList({ buddy }) {
           {buddy && buddy.length > 0
             ? buddy.map((d) => {
                 return (
-                  // <Link href={`/chat/${d._id}`}>
-                  <div>
-                    <div
-                      onClick={() => {
-                        handleUsernameSubmit(d?._id);
-                      }}
-                      className=" border flex items-center gap-4 bg-[#111418] px-4 mx-auto  min-h-[72px] py-2 justify-between"
-                    >
-                      <div className="flex items-center gap-4">
-                        <div
-                          className="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
-                          style={{
-                            backgroundImage: `url(${d.profilePicture})`,
-                          }}
-                        />
-                        <div className="flex flex-col justify-center">
-                          <p className="text-white text-base font-medium leading-normal line-clamp-1">
-                            {d.fullName}
-                          </p>
-                          <p className="text-white text-sm font-normal leading-normal line-clamp-2">
-                            {d.email}
+                  <Link href={`/chat/${d._id}`}>
+                    <div>
+                      <div className=" border flex items-center gap-4 bg-[#111418] px-4 mx-auto  min-h-[72px] py-2 justify-between">
+                        <div className="flex items-center gap-4">
+                          <div
+                            className="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
+                            style={{
+                              backgroundImage: `url(${d.profilePicture})`,
+                            }}
+                          />
+                          <div className="flex flex-col justify-center">
+                            <p className="text-white text-base font-medium leading-normal line-clamp-1">
+                              {d.fullName}
+                            </p>
+                            <p className="text-white text-sm font-normal leading-normal line-clamp-2">
+                              {d.email}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="shrink-0">
+                          <p className="text-white text-sm font-normal leading-normal">
+                            2h
                           </p>
                         </div>
                       </div>
-                      <div className="shrink-0">
-                        <p className="text-white text-sm font-normal leading-normal">
-                          2h
-                        </p>
-                      </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })
             : null}

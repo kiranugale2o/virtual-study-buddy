@@ -1,5 +1,6 @@
 import { currentUser, fetchUser, getMatchedStudents } from "@/actions";
 import ChatCard from "@/components/buddyChat-card";
+import ChatPage from "@/components/chatsocket";
 import Chats from "@/components/chatsocket";
 import ChatList from "@/components/matchbuddychatlist";
 // import ChatList from "@/components/matchbuddychatlist";

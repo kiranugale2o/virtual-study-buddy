@@ -1,6 +1,7 @@
 import { currentUser, fetchUser, getMatchedStudents } from "@/actions";
 import ChatCard from "@/components/buddyChat-card";
-import Chats from "@/components/chatsocket";
+import ChatPage from "@/components/chatsocket";
+
 import { redirect } from "next/navigation";
 
 export default async function Chat({ params }) {
@@ -15,8 +16,7 @@ export default async function Chat({ params }) {
   const { chatId } = params;
   return (
     <>
-      <ChatCard user={user} ProfileUser={ProfileUser} buddyId={chatId} />
-      {/* <Chats /> */}
+      <ChatPage user={user} ProfileUser={ProfileUser} buddyId={chatId} />
     </>
   );
 }
