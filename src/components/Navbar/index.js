@@ -111,7 +111,7 @@ export default function Navbar({ user, ProfileInfo }) {
           </Sheet>
         </div>
 
-        <div className="flex hidden lg:flex">
+        <div className="flex  lg:flex">
           <div className=" hidden lg:flex flex-row  grid gap-10 grid-cols-3 mr-5">
             {navItem.map((d) => {
               return (
@@ -131,7 +131,7 @@ export default function Navbar({ user, ProfileInfo }) {
           <button
             className={`${
               user ? "hidden" : "flex"
-            } flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]`}
+            } flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-black  text-white text-sm font-bold leading-normal tracking-[0.015em]`}
           >
             <Link href={pathname === "/sign-up" ? "/sign-in" : "/sign-up"}>
               <span class="">

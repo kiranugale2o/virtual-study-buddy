@@ -12,10 +12,18 @@ app.prepare().then(() => {
   const server = createServer(expressApp);
   const io = new Server(server);
 
+  const activeUsers = new Set(); // Use a Set to store unique active user IDs
+
   // Handle Socket.IO connections
   io.on("connection", (socket) => {
-    console.log("New client connected");
-
+    console.log("New client connected", socket.id);
+    // Handle incoming user data when a client connects
+    socket.on("registerUser", (username) => {
+      console.log("User registered:", username);
+      // Optionally store the username with the socket id
+      activeUsers.add({ id: socket.id, username });
+      io.emit("activeUsers", Array.from(activeUsers)); // Update all clients with active users
+    });
     // Handle incoming messages
     socket.on("message", (msg) => {
       console.log("Message received:", msg);
@@ -23,7 +31,11 @@ app.prepare().then(() => {
     });
 
     socket.on("disconnect", () => {
-      console.log("Client disconnected");
+      console.log("User disconnected:", socket.id);
+
+      // Remove user from active users
+      activeUsers.delete(socket.id);
+      io.emit("activeUsers", Array.from(activeUsers)); // Broadcast updated active users to all clients
     });
   });
 

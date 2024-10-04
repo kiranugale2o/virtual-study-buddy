@@ -31,7 +31,9 @@ export default function SocketClient() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col item-center justify-between lg:p-20">
+      <div className="text-2xl  font-semibold p-5">Chat Your Buddies</div>
+      <hr />
       <h2>Socket.IO Chat</h2>
       <div>
         {messages.map((msg, index) => (
