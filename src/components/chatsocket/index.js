@@ -57,8 +57,9 @@
 // components/Chat.js
 "use client";
 import React, { useEffect, useState } from "react";
-import Pusher from "pusher-js";
+
 import { ChevronsLeftRightEllipsisIcon } from "lucide-react";
+import Pusher from "pusher-js";
 
 const ChatPage = ({ user, ProfileUser, buddyId }) => {
   const [message, setMessage] = useState("");
@@ -66,11 +67,17 @@ const ChatPage = ({ user, ProfileUser, buddyId }) => {
 
   useEffect(() => {
     // Initialize socket connection on the client side
-    socket = io();
+    // socket = io();
+
+    const pusher = new Pusher("4eaa06251960e1a80490", {
+      cluster: "ap2",
+    });
 
     const channel = pusher.subscribe("chat");
     channel.bind("message", (data) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
+      console.log(data.message);
+
+      setMessages(data.message);
     });
 
     return () => {
@@ -101,9 +108,14 @@ const ChatPage = ({ user, ProfileUser, buddyId }) => {
     <div>
       <h2>Chat {buddyId}</h2>
       <div>
-        {messages.map((msg, index) => (
-          <div key={index}>{msg.message}</div>
-        ))}
+        {messages && messages.length > 0
+          ? messages.map((msg, index) => (
+              <div key={index}>
+                <div className="">{msg.userName}</div>
+                {msg.text}
+              </div>
+            ))
+          : null}
       </div>
       <input
         type="text"
