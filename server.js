@@ -31,14 +31,23 @@ app.prepare().then(() => {
       io.emit("message", msg); // Broadcast message to all clients
     });
 
-    socket.on("disconnect", () => {
-      console.log("User disconnected:", socket.id);
+  //   socket.on("disconnect", () => {
+  //     console.log("User disconnected:", socket.id);
 
-      // Remove user from active users
-      activeUsers.delete(socket.id);
+  //     // Remove user from active users
+  //     activeUsers.delete(socket.id);
+  //     io.emit("activeUsers", Array.from(activeUsers)); // Broadcast updated active users to all clients
+  //   });
+  // });
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected:', socket.id);
+        // Remove listeners for this socket
+       
+       activeUsers.delete(socket.id);
       io.emit("activeUsers", Array.from(activeUsers)); // Broadcast updated active users to all clients
+
     });
-  });
 
   // Serve Next.js pages
   expressApp.all("*", (req, res) => {
