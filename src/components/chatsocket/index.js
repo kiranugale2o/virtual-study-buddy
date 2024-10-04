@@ -10,7 +10,7 @@ export default function SocketClient() {
 
   useEffect(() => {
     // Initialize socket connection on the client side
-    socket = io();
+    socket = io("https://virtual-study-buddy-black.vercel.app/");
 
     // Listen for messages from the server
     socket.on("message", (msg) => {
