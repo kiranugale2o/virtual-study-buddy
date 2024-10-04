@@ -26,7 +26,7 @@ export async function POST(req) {
     .populate("messages")
     .sort({ updatedAt: -1 });
 
-  pusher.trigger("chat", "message", {
+  pusher.trigger("chat", `message${receiverId}`, {
     userName: user?.fullName,
     message: getConversationMessage?.messages,
   });

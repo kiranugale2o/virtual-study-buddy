@@ -75,7 +75,7 @@ const ChatPage = ({ user, ProfileUser, buddyId }) => {
     });
 
     const channel = pusher.subscribe("chat");
-    channel.bind("message", (data) => {
+    channel.bind(`message${buddyId}`, (data) => {
       console.log(data.message);
 
       setMessages(data.message);
@@ -89,11 +89,15 @@ const ChatPage = ({ user, ProfileUser, buddyId }) => {
   const sendMessage = () => {
     if (message.trim()) {
       axios
-        .post("/api/sendMessage", {
-          message,
-          senderId: ProfileUser?._id,
-          receiverId: buddyId,
-        })
+        .post(
+          "/api/sendMessage",
+          {
+            message,
+            senderId: ProfileUser?._id,
+            receiverId: buddyId,
+          },
+          { timeout: 10000 }
+        )
         .then((response) => {
           alert(response.data.message);
         })
