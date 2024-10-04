@@ -12,10 +12,7 @@ let isConnected; // Track the connection status
         return; // Use existing connection
     }
 
-    await mongoose.connect(Mongo_DB, {
-        useNewUrlParser: true,
-        // No need for useUnifiedTopology
-    });
+    await mongoose.connect(Mongo_DB);
     isConnected = true; // Set connection status
 
 
