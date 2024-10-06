@@ -36,29 +36,24 @@ export const POST = async (req) => {
           $push: { messages: newMsg?._id },
         }
       );
-
-      return NextResponse.json({
-        success: true,
-        ChatDetailsID: getConversationMessage?._id,
-      });
     } else {
       const createConversation = await Chat({
         senderId: senderId,
         receiverId: chatId,
         messages: newMsg?._id,
       });
-      await createConversation.save();
 
-      return NextResponse.json({
-        success: true,
-        ChatDetailsID: createConversation?._id,
-      });
+      await createConversation.save();
     }
 
     const channelName = "chat"; // You can also make this dynamic based on your logic
     const eventName = `message${chatId}`;
+    await pusherServer.trigger("chat", eventName, newMsg);
+    console.log("messss", newMsg);
 
-    // await pusherServer.trigger(channelName, eventName, newMsg);
+    return NextResponse.json({
+      success: true,
+    });
     /* Trigger a Pusher event for a specific chat about the new message */
     //await pusherServer.trigger(chatId, "new-message", newMsg);
 

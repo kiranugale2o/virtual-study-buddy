@@ -2,6 +2,7 @@ import {
   currentUser,
   fetchOneBuddy,
   fetchUser,
+  getConversationId,
   getMatchedStudents,
 } from "@/actions";
 import ChatBox from "@/components/ChatBox";
@@ -21,7 +22,15 @@ const ChatsID = async ({ params }) => {
   const chatuser = await fetchOneBuddy(chatId);
   console.log(chatuser, chatId);
 
-  return <ChatBox chat={chatuser} ProfileUser={ProfileUser} />;
+  const ConversationId = await getConversationId(ProfileUser?._id, chatId);
+
+  return (
+    <ChatBox
+      chat={chatuser}
+      ProfileUser={ProfileUser}
+      ConversationId={ConversationId?._id}
+    />
+  );
 };
 
 export default ChatsID;

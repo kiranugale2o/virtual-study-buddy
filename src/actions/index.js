@@ -10,6 +10,7 @@ import { cookies } from "next/headers";
 import MatchedStudent from "@/model/MatchedStudent";
 import { Notes } from "@/model/Notes";
 import { Favourite } from "@/model/Favourites";
+import Chat from "@/model/Chat";
 
 //fetch Current User is exit or not
 export async function currentUser() {
@@ -132,5 +133,27 @@ export async function GetFavouritesNotes(id) {
     return JSON.parse(JSON.stringify(notes.notesId));
   } else {
     return null;
+  }
+}
+
+//getConverId
+export async function getConversationId(senderId, chatId) {
+  const getConversationExit = await Chat.findOne({
+    $or: [
+      { senderId: senderId, receiverId: chatId },
+      { senderId: chatId, receiverId: senderId },
+    ],
+  });
+
+  if (getConversationExit) {
+    return JSON.parse(JSON.stringify(getConversationExit));
+  } else {
+    const CreateNewConversation = await Chat.create({
+      senderId: senderId,
+      receiverId: chatId,
+    });
+    if (CreateNewConversation) {
+      return JSON.parse(JSON.stringify(CreateNewConversation));
+    }
   }
 }

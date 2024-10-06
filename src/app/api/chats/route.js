@@ -1,4 +1,5 @@
 import DatabaseConn from "@/database";
+import { pusherServer } from "@/helpers/pusher";
 import Chat from "@/model/Chat";
 import Message from "@/model/Message";
 import { Student } from "@/model/StudentProfile";
@@ -34,6 +35,8 @@ export const POST = async (req) => {
       success: true,
       messages: chat.messages,
     });
+
+    await pusherServer.trigger("livechat", chatId, chat.messages);
 
     // return new Response(JSON.stringify(chat.messages), { status: 200 });
   } catch (err) {

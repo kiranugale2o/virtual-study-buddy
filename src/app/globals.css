@@ -213,3 +213,20 @@ body {
   background-color: #eeeeee;
   align-self: flex-start;
 }
+
+.message {
+  padding: 10px;
+  border-radius: 12px;
+  max-width: 75%;
+  word-wrap: break-word;
+}
+
+.user-message {
+  background-color: #e0f7fa;
+  align-self: flex-end;
+}
+
+.bot-message {
+  background-color: #eeeeee;
+  align-self: flex-start;
+}
