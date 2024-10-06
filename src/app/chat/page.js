@@ -1,12 +1,9 @@
 import { currentUser, fetchUser, getMatchedStudents } from "@/actions";
-import ChatCard from "@/components/buddyChat-card";
-import ChatPage from "@/components/chatsocket";
-import Chats from "@/components/chatsocket";
-import ChatList from "@/components/matchbuddychatlist";
-// import ChatList from "@/components/matchbuddychatlist";
+import ChatList from "@/components/ChatList";
+
 import { redirect } from "next/navigation";
 
-export default async function Chat() {
+const Chats = async () => {
   const user = await currentUser();
   if (!user) redirect("/sign-up");
 
@@ -14,13 +11,15 @@ export default async function Chat() {
   if (user && !ProfileUser?._id) {
     redirect("/onboard");
   }
+
   const data = await getMatchedStudents(ProfileUser?._id);
 
   return (
-    <>
-      <ChatList buddy={data} />
-
-      {/* <Chats /> */}
-    </>
+    <div className="main-container">
+      <div className="w-1/3 max-lg:w-1/2 max-md:w-full">Chats</div>
+      <ChatList chatlist={data} />
+    </div>
   );
-}
+};
+
+export default Chats;

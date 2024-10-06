@@ -49,6 +49,10 @@ const studentSchema = new mongoose.Schema({
   userId: {
     type: String,
   },
+  chats: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chat" }],
+    default: [],
+  },
 });
 
 // Ensure proper model registration without resetting `mongoose.models`
