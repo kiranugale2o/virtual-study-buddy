@@ -102,7 +102,7 @@ export default function Navbar({ user, ProfileInfo }) {
                 })}
               </div>
               <div
-                className="mt-6 ml-10"
+                className="hidden lg:flexmt-6 ml-10"
                 style={{ display: `${user ? "block" : "none"}` }}
               >
                 <Userbutton user={user} ProfileUser={ProfileInfo} />
@@ -140,8 +140,8 @@ export default function Navbar({ user, ProfileInfo }) {
             </Link>
           </button>
           <div
-            className="none lg:block"
-            style={{ display: `${user ? "block" : "none"}` }}
+            // style={{ display: `${user ? "block" : "none"}` }}
+            className="hidden lg:block"
           >
             <Userbutton user={user} ProfileUser={ProfileInfo} />
           </div>

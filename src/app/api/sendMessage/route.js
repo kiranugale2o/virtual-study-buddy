@@ -10,7 +10,7 @@ export const POST = async (req) => {
 
     const body = await req.json();
     let ConchatId;
-    const { senderId, text, photo, chatId } = body;
+    const { senderId, text, photo, chatId, time } = body;
     console.log(chatId);
 
     const newMsg = await Message.create({
@@ -18,6 +18,7 @@ export const POST = async (req) => {
       text,
       photo,
       seen: false,
+      time,
     });
 
     const getConversationMessage = await Chat.findOne({

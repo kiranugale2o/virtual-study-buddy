@@ -132,7 +132,7 @@ export function formatDateforLastSeen() {
   const year = now.getFullYear().toString().slice(-2); // Get last two digits of the year
 
   // Combine all parts into the desired format
-  const formattedDate = `${hours}.${formattedMinutes}${ampm} ${day}/${month}/${year}`;
+  const formattedDate = `${hours}.${formattedMinutes}${ampm} `;
 
   return formattedDate;
 }

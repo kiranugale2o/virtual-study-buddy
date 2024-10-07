@@ -2,6 +2,8 @@
 import { pusherClient } from "@/helpers/pusher";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
+import { LucideSend } from "lucide-react";
+import { formatDateforLastSeen } from "@/utils";
 
 export default function ChatBox({ chat, ProfileUser, ConversationId }) {
   const [message, setMessage] = useState("");
@@ -79,8 +81,6 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
     pusherClient.subscribe("chat");
 
     const handleMessage = async (data) => {
-      console.log("chaaaaa", data);
-
       setMessages((prevMessages) => [...prevMessages, data]);
     };
 
@@ -90,13 +90,14 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
       pusherClient.unsubscribe("chat");
       pusherClient.unbind(`message${ConversationId}`, handleMessage);
     };
-  }, [ConversationId]);
+  }, [message]);
   function sendMessage() {
     const data = {
       senderId: ProfileUser?._id,
       text: message,
       photo: "",
       chatId: chat?._id,
+      time: formatDateforLastSeen(),
     };
     fetch("/api/sendMessage", {
       method: "POST",
@@ -104,9 +105,7 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
     }).then((res) =>
       res.json().then((res) => {
         if (res.success) {
-          alert("send");
-
-          // setMessages((prevMessages) => [...prevMessages, res.messages.text]);
+          setMessage("");
         } else {
           alert("not send");
         }
@@ -114,24 +113,29 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
     );
   }
   return (
-    <div
-    // className={`chat-box ${chat._id === currentChatId ? "bg-blue-2" : ""}`}
-    //onClick={() => router.push(`/chats/${chat._id}`)}
-    >
-      <div className="flex flex-col justify-between p-24">
-        <div className="flex flex-col gap-1 p-10">
-          <p className="text-base-bold">{chat.fullName}</p>
+    <div>
+      <div className="flex flex-col justify-between w-full">
+        <div className="flex items-center gap-4 bg-[#111418] w-full  px-4 min-h-[72px] py-2 justify-between">
+          <div className="flex items-center gap-4">
+            <div
+              className="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
+              style={{
+                backgroundImage: `url(${chat?.profilePicture})`,
+              }}
+            />
+            <div className="flex flex-col justify-center">
+              <p className="text-white text-base font-medium leading-normal line-clamp-1">
+                {chat?.fullName}
+              </p>
+              <p className="text-[#9dabb8] text-sm font-normal leading-normal line-clamp-2">
+                {chat?.online ? "online" : "offline"}
+              </p>
+            </div>
+          </div>
+          <div className="shrink-0"></div>
+        </div>
 
-          <p className="text-small-bold">Started a chat</p>
-          <Button
-            onClick={() => {
-              if (ConversationId !== "") {
-                getChatDetails();
-              }
-            }}
-          >
-            Staart
-          </Button>
+        <div className="flex flex-col gap-1 p-10 overflow-auto h-[400px] lg:h-[400px]">
           {chats && chats.length > 0 ? (
             <>
               {chats[0].map((msg) => {
@@ -144,24 +148,13 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
                           : "bot-message"
                       }`}
                     >
-                      <span>{msg.text}</span>
+                      <span>
+                        {msg.text}
+                        <sub>{msg.time}</sub>
+                      </span>
                     </div>
                   </>
                 );
-
-                //   <div
-                //     className={`text-15px text-red-500 w-[100px] ${
-                //       msg.senderId === ProfileUser?._id
-                //         ? "bg-green-400"
-                //         : "bg-gray-400"
-                //     } ${
-                //       msg.senderId === ProfileUser?._id
-                //         ? "mr-10"
-                //         : " mt-10 ml-20"
-                //     }`}
-                //   >
-                //     {msg.text}
-                //   </div>
               })}
             </>
           ) : null}
@@ -176,34 +169,35 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
                         : "bot-message"
                     }`}
                   >
-                    {msg.text}
+                    {msg}
                   </div>
                 );
               })}
             </>
           ) : null}
+        </div>
+      </div>
+
+      <div>
+        <div className=" flex fixed bottom-5 p-2 border w-full bg-sky-100 justify-between lg:w-[560px] mx-0 ml-0">
           <input
+            className=" w-full border p-2"
             type="text"
-            className="border p-5"
+            value={message}
             onChange={(e) => {
               setMessage(e.target.value);
             }}
           />
           <br />
 
-          <div className="flex ">
-            <Button onClick={getChatDetails}>get Live Chat</Button>
-            <Button onClick={sendMessage}>Send</Button>
+          <div className="lg:flex justify-between mx-auto ">
+            <div className="border rounded-full">
+              <LucideSend onClick={sendMessage} />
+            </div>
+
+            {/* <Button onClick={getChatDetails}>get Live Chat</Button> */}
           </div>
         </div>
-      </div>
-
-      <div>
-        {/* <p className="text-base-light text-grey-3">
-          {!lastMessage
-            ? format(new Date(chat?.createdAt), "p")
-            : format(new Date(chat?.lastMessageAt), "p")}
-        </p> */}
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import {
   getMatchedStudents,
 } from "@/actions";
 import ChatBox from "@/components/ChatBox";
+import ChatList from "@/components/ChatList";
 import { redirect } from "next/navigation";
 
 const ChatsID = async ({ params }) => {
@@ -23,13 +24,21 @@ const ChatsID = async ({ params }) => {
   console.log(chatuser, chatId);
 
   const ConversationId = await getConversationId(ProfileUser?._id, chatId);
-
+  const data = await getMatchedStudents(ProfileUser?._id);
   return (
-    <ChatBox
-      chat={chatuser}
-      ProfileUser={ProfileUser}
-      ConversationId={ConversationId?._id}
-    />
+    <div className="main-container">
+      <div className="w-2/3 max-lg:hidden border">
+        {" "}
+        <ChatList chatlist={data} ProfileUser={ProfileUser} />
+      </div>
+      <div className="w-full lg:w-2/3 border">
+        <ChatBox
+          chat={chatuser}
+          ProfileUser={ProfileUser}
+          ConversationId={ConversationId?._id}
+        />
+      </div>
+    </div>
   );
 };
 

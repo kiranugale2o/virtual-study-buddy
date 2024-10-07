@@ -7,6 +7,7 @@ export async function POST(req) {
   try {
     await DatabaseConn();
     const { userId, status } = await req.json();
+    console.log("status........", status, userId);
 
     // await client.connect();
     // const database = client.db("chat");
@@ -17,8 +18,7 @@ export async function POST(req) {
       { _id: userId },
       {
         $set: {
-          online: status === "online",
-          lastSeen: formatDateforLastSeen,
+          online: status === "online" ? true : false,
         },
       },
       { upsert: true } // Create a new document if it doesn't exist

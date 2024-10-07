@@ -15,8 +15,7 @@ const Chats = async () => {
   const data = await getMatchedStudents(ProfileUser?._id);
 
   return (
-    <div className="main-container">
-      <div className="w-1/3 max-lg:w-1/2 max-md:w-full">Chats</div>
+    <div className="">
       <ChatList chatlist={data} ProfileUser={ProfileUser} />
     </div>
   );

@@ -1,3 +1,4 @@
+import { formatDateforLastSeen } from "@/utils";
 import mongoose from "mongoose";
 
 const MessageSchema = new mongoose.Schema({
@@ -13,9 +14,8 @@ const MessageSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
+  time: {
+    type: String,
   },
   seen: {
     type: Boolean,
