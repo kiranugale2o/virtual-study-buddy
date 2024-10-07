@@ -109,4 +109,30 @@ export const formatTime = () => {
   return currentDate;
 };
 
-//console.log(formatTime()); // Output example: "Today 5:30 PM"
+export function formatDateforLastSeen() {
+  const now = new Date();
+
+  // Get hours and minutes
+  let hours = now.getHours();
+  const minutes = now.getMinutes();
+
+  // Determine AM/PM
+  const ampm = hours >= 12 ? "pm" : "am";
+
+  // Convert hours from 24-hour format to 12-hour format
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+
+  // Format minutes with leading zero if needed
+  const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+
+  // Get date components
+  const day = now.getDate();
+  const month = now.getMonth() + 1; // Months are zero-based
+  const year = now.getFullYear().toString().slice(-2); // Get last two digits of the year
+
+  // Combine all parts into the desired format
+  const formattedDate = `${hours}.${formattedMinutes}${ampm} ${day}/${month}/${year}`;
+
+  return formattedDate;
+}

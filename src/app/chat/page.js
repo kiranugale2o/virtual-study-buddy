@@ -17,7 +17,7 @@ const Chats = async () => {
   return (
     <div className="main-container">
       <div className="w-1/3 max-lg:w-1/2 max-md:w-full">Chats</div>
-      <ChatList chatlist={data} />
+      <ChatList chatlist={data} ProfileUser={ProfileUser} />
     </div>
   );
 };

@@ -153,20 +153,7 @@ export default function FindBuddy({ user, ProfileUser, buddys }) {
                                     StudyBuddy
                                   </DialogTitle>
                                   <div className="text-[18px]">
-                                    You Want To Match <b>{d.fullName}</b> that
-                                    Learn{" "}
-                                    {d.subjectsOfInterest[0]
-                                      .split(",")
-                                      .map((subject) => {
-                                        return (
-                                          <>
-                                            {subject}
-                                            {" , "}
-                                          </>
-                                        );
-                                      })}
-                                    {"Etc. "}
-                                    this Subject !
+                                    You Want To Match <b>{d.fullName}</b>
                                   </div>
                                 </DialogHeader>
 

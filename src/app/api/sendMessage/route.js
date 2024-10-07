@@ -9,7 +9,7 @@ export const POST = async (req) => {
     await DatabaseConn();
 
     const body = await req.json();
-
+    let ConchatId;
     const { senderId, text, photo, chatId } = body;
     console.log(chatId);
 
@@ -36,6 +36,7 @@ export const POST = async (req) => {
           $push: { messages: newMsg?._id },
         }
       );
+      ConchatId = getConversationMessage?._id;
     } else {
       const createConversation = await Chat({
         senderId: senderId,
@@ -44,10 +45,11 @@ export const POST = async (req) => {
       });
 
       await createConversation.save();
+      ConchatId = createConversation?._id;
     }
 
     const channelName = "chat"; // You can also make this dynamic based on your logic
-    const eventName = `message${chatId}`;
+    const eventName = `message${ConchatId}`;
     await pusherServer.trigger("chat", eventName, newMsg);
     console.log("messss", newMsg);
 

@@ -79,16 +79,18 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
     pusherClient.subscribe("chat");
 
     const handleMessage = async (data) => {
-      setMessages((prevMessages) => [...prevMessages, data.text]);
+      console.log("chaaaaa", data);
+
+      setMessages((prevMessages) => [...prevMessages, data]);
     };
 
-    pusherClient.bind(`message${chat?._id}`, handleMessage);
+    pusherClient.bind(`message${ConversationId}`, handleMessage);
 
     return () => {
       pusherClient.unsubscribe("chat");
-      pusherClient.unbind(`message${chat?._id}`, handleMessage);
+      pusherClient.unbind(`message${ConversationId}`, handleMessage);
     };
-  }, [chat?._id]);
+  }, [ConversationId]);
   function sendMessage() {
     const data = {
       senderId: ProfileUser?._id,
@@ -167,8 +169,14 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
             <>
               {messages.map((msg) => {
                 return (
-                  <div className="message text-15px text-red-500 user-message">
-                    {msg}
+                  <div
+                    className={`message ${
+                      msg.senderId === ProfileUser?._id
+                        ? "user-message"
+                        : "bot-message"
+                    }`}
+                  >
+                    {msg.text}
                   </div>
                 );
               })}

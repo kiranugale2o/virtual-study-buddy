@@ -49,9 +49,10 @@ const studentSchema = new mongoose.Schema({
   userId: {
     type: String,
   },
-  chats: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chat" }],
-    default: [],
+  online: Boolean,
+  lastSeen: {
+    type: Date,
+    default: Date.now,
   },
 });
 

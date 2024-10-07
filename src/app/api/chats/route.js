@@ -36,7 +36,7 @@ export const POST = async (req) => {
       messages: chat.messages,
     });
 
-    await pusherServer.trigger("livechat", chatId, chat.messages);
+    await pusherServer.trigger("livechat", chat?._id, chat.messages);
 
     // return new Response(JSON.stringify(chat.messages), { status: 200 });
   } catch (err) {
