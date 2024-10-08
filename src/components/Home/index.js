@@ -1,4 +1,8 @@
-export default function HomePage() {
+"use client";
+import { useRouter } from "next/navigation";
+
+export default function HomePage({ ProfileUser, user }) {
+  const router = useRouter();
   return (
     <>
       <div className="lg:px-40 flex flex-1 justify-center   w-full">
@@ -23,10 +27,29 @@ export default function HomePage() {
                 </div>
                 <div className="flex-wrap gap-3 flex">
                   <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#47a6e6] text-[#111517] text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]">
-                    <span className="truncate">Try demo</span>
+                    <span
+                      className="truncate"
+                      onClick={() => {
+                        router.push("/buddy");
+                      }}
+                    >
+                      {ProfileUser?._id ? "Find Buddy" : "Try Now"}
+                    </span>
                   </button>
                   <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#f0f3f4] text-[#111517] text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]">
-                    <span className="truncate">Sign up</span>
+                    <span
+                      className="truncate"
+                      onClick={() => {
+                        {
+                          ProfileUser?._id
+                            ? router.push("/notes")
+                            : router.push("/sign-in");
+                        }
+                      }}
+                    >
+                      {" "}
+                      {ProfileUser?._id ? "Explore Notes" : "Sign In"}
+                    </span>
                   </button>
                 </div>
               </div>

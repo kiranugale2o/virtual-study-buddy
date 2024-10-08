@@ -6,13 +6,13 @@ import { redirect } from "next/navigation";
 
 export default async function Home() {
   const user = await currentUser();
-  if (!user) redirect("/sign-up");
+  //if (!user) redirect("/sign-up");
 
   const ProfileUser = await fetchUser(user?.userId);
-  console.log(user);
-  if (user && !ProfileUser?._id) {
-    redirect("/onboard");
-  }
+  //console.log(user);
+  // if (user && !ProfileUser?._id) {
+  //   redirect("/onboard");
+  // }
 
-  return <HomePage />;
+  return <HomePage ProfileUser={ProfileUser} user={user} />;
 }

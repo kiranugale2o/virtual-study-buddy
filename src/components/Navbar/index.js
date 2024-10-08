@@ -67,7 +67,7 @@ export default function Navbar({ user, ProfileInfo }) {
             </svg>
           </div>
           <h2 class="text-[#111418] text-sky-400 text-2xl lg:text-3xl font-bold leading-tight tracking-[-0.015em] ">
-            Study Buddy
+            Study with Buddy
           </h2>
 
           <Sheet>
