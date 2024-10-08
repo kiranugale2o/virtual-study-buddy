@@ -10,7 +10,6 @@ export const POST = async (req) => {
     await DatabaseConn();
 
     const { chatId } = await req.json();
-    console.log("chatid", chatId);
 
     const chat = await Chat.findOne({ _id: chatId })
       .populate({
@@ -31,12 +30,12 @@ export const POST = async (req) => {
       })
       .exec();
 
+    const channelName = "chat"; // You can also make this dynamic based on your logic
+
     return NextResponse.json({
       success: true,
       messages: chat.messages,
     });
-
-    await pusherServer.trigger("livechat", chat?._id, chat.messages);
 
     // return new Response(JSON.stringify(chat.messages), { status: 200 });
   } catch (err) {
@@ -46,31 +45,3 @@ export const POST = async (req) => {
     });
   }
 };
-
-// export const POST = async (req, { params }) => {
-//   try {
-//     await connectToDB();
-
-//     const { chatId } = params;
-
-//     const body = await req.json();
-
-//     const { currentUserId } = body;
-
-//     await Message.updateMany(
-//       { chat: chatId },
-//       { $addToSet: { seenBy: currentUserId } },
-//       { new: true }
-//     )
-//       .populate({
-//         path: "sender seenBy",
-//         model: User,
-//       })
-//       .exec();
-
-//     return new Response("Seen all messages by current user", { status: 200 });
-//   } catch (err) {
-//     console.log(err);
-//     return new Response("Failed to update seen messages", { status: 500 });
-//   }
-// };

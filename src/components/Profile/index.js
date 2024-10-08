@@ -10,6 +10,8 @@ import CommonForm from "../Common-form";
 import { studentFormFields } from "@/utils";
 import { useRouter } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Supabase client initialization inside a useEffect or conditionally on client-side
 let supabaseClient;
@@ -72,11 +74,11 @@ export default function ProfilePage({ ProfileUser, myNotes, matchedBuddy }) {
     }).then((res) =>
       res.json().then((res) => {
         if (res.success) {
-          alert(res.message);
+          toast.success(res.message);
           router.refresh("/profile");
           setDialgobtn(false);
         } else {
-          alert(res.message);
+          toast.warning(res.message);
         }
       })
     );

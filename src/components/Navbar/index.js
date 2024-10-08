@@ -38,6 +38,11 @@ export default function Navbar({ user, ProfileInfo }) {
       show: ProfileInfo,
     },
     {
+      name: "ask me",
+      path: "/chatbot",
+      show: ProfileInfo,
+    },
+    {
       name: "Profile",
       path: "/profile",
       show: ProfileInfo,

@@ -232,5 +232,5 @@ body {
 }
 
 .main-container {
-  @apply h-screen flex justify-between gap-5 py-3 max-lg:gap-8;
+  @apply h-screen flex justify-between gap-5  max-lg:gap-8;
 }

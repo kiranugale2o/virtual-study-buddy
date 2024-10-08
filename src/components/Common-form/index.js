@@ -13,8 +13,6 @@ export default function CommonForm({
   buttonAction,
   handleFileChange,
 }) {
-  console.log("curr", currentData);
-
   return (
     <>
       <div className="flex flex-col w-full justify-between item-center ">

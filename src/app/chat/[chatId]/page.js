@@ -27,11 +27,11 @@ const ChatsID = async ({ params }) => {
   const data = await getMatchedStudents(ProfileUser?._id);
   return (
     <div className="main-container">
-      <div className="w-2/3 max-lg:hidden border">
+      <div className="w-2/3 max-lg:hidden border bg-sky-50">
         {" "}
         <ChatList chatlist={data} ProfileUser={ProfileUser} />
       </div>
-      <div className="w-full lg:w-2/3 border">
+      <div className="w-full lg:w-2/3 border bg-sky-50  ">
         <ChatBox
           chat={chatuser}
           ProfileUser={ProfileUser}

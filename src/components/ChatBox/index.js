@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { LucideSend } from "lucide-react";
 import { formatDateforLastSeen } from "@/utils";
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ChatBox({ chat, ProfileUser, ConversationId }) {
   const [message, setMessage] = useState("");
@@ -19,78 +22,28 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
       }),
     }).then((res) =>
       res.json().then((res) => {
-        console.log(res, "msd");
-
         setChat((...prevMsg) => [res.messages]);
         setMessages("");
-        console.log("chat", chats);
       })
     );
   };
-
-  //   useEffect(() => {
-  //     if (converSationId !== "") getChatDetails();
-  //   }, [ProfileUser, chat]);
-
-  //   useEffect(() => {
-  //     pusherClient.subscribe(chat?._id);
-
-  //     const handleMessage = async (newMessage) => {
-  //       setChat((prevChat) => {
-  //         return {
-  //           ...prevChat,
-  //           messages: [...prevChat.messages, newMessage],
-  //         };
-  //       });
-  //     };
-
-  //     pusherClient.bind("new-message", handleMessage);
-
-  //     return () => {
-  //       pusherClient.unsubscribe(chat?._id);
-  //       pusherClient.unbind("new-message", handleMessage);
-  //     };
-  //   }, [chat?._id]);
-
-  //   useEffect(() => {
-  //     var channel = pusherClient.subscribe(chat?._id);
-  //     channel.bind("new-message", function (data) {
-  //       setChat(JSON.stringify(data));
-  //     });
-  //   });
-  //
-
-  //   useEffect(() => {
-  //     const channel = pusherClient.subscribe("chat");
-  //     channel.bind(`message${chat?._id}`, (data) => {
-  //       console.log("pusher", data);
-
-  //       setMessages((prevMessages) => [...prevMessages, data.text]);
-  //     });
-  //   }, []);
-
-  useEffect(() => {
-    const channel = pusherClient.subscribe("livechat");
-    channel.bind(chat?._id, (data) => {
-      setChat(data.messages);
-    });
-  }, [chat?._id]);
 
   useEffect(() => {
     getChatDetails();
     pusherClient.subscribe("chat");
 
-    const handleMessage = async (data) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
-    };
-
-    pusherClient.bind(`message${ConversationId}`, handleMessage);
+    pusherClient.bind(`${ConversationId}`, (data) => {
+      // setMessages((prevMessages) => [...prevMessages, data]);
+      setMessages((...prevMsg) => [data]);
+      console.log(messages, "mssssss");
+    });
 
     return () => {
       pusherClient.unsubscribe("chat");
-      pusherClient.unbind(`message${ConversationId}`, handleMessage);
+      pusherClient.unbind(`message${ConversationId}`);
     };
   }, [message]);
+
   function sendMessage() {
     const data = {
       senderId: ProfileUser?._id,
@@ -106,8 +59,9 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
       res.json().then((res) => {
         if (res.success) {
           setMessage("");
+          getChatDetails();
         } else {
-          alert("not send");
+          toast.error("Somthing wrong ! Refresh your page");
         }
       })
     );
@@ -150,26 +104,30 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
                     >
                       <span>
                         {msg.text}
-                        <sub>{msg.time}</sub>
+                        {"  "}
+                        <sub className="">{msg.time}</sub>
                       </span>
                     </div>
                   </>
                 );
               })}
             </>
-          ) : null}
+          ) : (
+            <div className="text-2xl">Start Chat</div>
+          )}
           {messages && messages.length > 0 ? (
             <>
-              {messages.map((msg) => {
+              {messages.map((d) => {
                 return (
                   <div
                     className={`message ${
-                      msg.senderId === ProfileUser?._id
+                      d.senderId === ProfileUser?._id
                         ? "user-message"
                         : "bot-message"
                     }`}
                   >
-                    {msg}
+                    {d.text}
+                    {"ff"}
                   </div>
                 );
               })}
@@ -188,17 +146,17 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
               setMessage(e.target.value);
             }}
           />
+
           <br />
 
           <div className="lg:flex justify-between mx-auto ">
-            <div className="border rounded-full">
+            <div className="border rounded-full mt-2 ml-3">
               <LucideSend onClick={sendMessage} />
             </div>
-
-            {/* <Button onClick={getChatDetails}>get Live Chat</Button> */}
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

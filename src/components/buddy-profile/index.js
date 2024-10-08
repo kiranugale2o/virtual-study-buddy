@@ -1,5 +1,9 @@
 "use client";
+
+import { useRouter } from "next/navigation";
+
 export default function BuddyProfileCard({ ProfileUser, SearchBuddy }) {
+  const router = useRouter();
   return (
     <>
       <div className="px-40 flex flex-1 justify-center py-5  ">
@@ -27,7 +31,14 @@ export default function BuddyProfileCard({ ProfileUser, SearchBuddy }) {
               </div>
               <div className="flex w-full px-3 lg:max-w-[480px] gap-3 lg:@[480px]:w-auto">
                 <button className="flex  cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-sky-400 hover:bg-black hover:text-white text-black text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto">
-                  <span className="truncate">Send message</span>
+                  <span
+                    className="truncate"
+                    onClick={() => {
+                      router.push(`/chat/${SearchBuddy?._id}`);
+                    }}
+                  >
+                    Send message
+                  </span>
                 </button>
                 <button className="flex  cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-sky-400 text-black hover:bg-black hover:text-white text-black text-sm font-bold leading-normal tracking-[0.015em] flex-1 @[480px]:flex-auto">
                   <span className="truncate">Video Call</span>

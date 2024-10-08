@@ -1,7 +1,7 @@
 export default function HomePage() {
   return (
     <>
-      <div className="lg:px-40 flex flex-1 justify-center py-5  w-full">
+      <div className="lg:px-40 flex flex-1 justify-center   w-full">
         <div className="layout-content-container flex flex-col lg:max-w-[960px] flex-1">
           <div className="@container">
             <div className="@[480px]:p-4">

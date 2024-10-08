@@ -4,6 +4,8 @@ import CommonForm from "../Common-form";
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Supabase client initialization inside a useEffect or conditionally on client-side
 let supabaseClient;
@@ -20,7 +22,6 @@ export default function OnBoardCard({ user, email }) {
   function handleFileChange(event) {
     event.preventDefault();
     setFile(event.target.files[0]);
-    console.log(file);
   }
   async function handleFileUploadToSupabase() {
     if (!supabaseClient || !file) return;
@@ -31,8 +32,6 @@ export default function OnBoardCard({ user, email }) {
         cacheControl: "3600",
         upsert: false,
       });
-
-    console.log(data, error);
 
     if (data) {
       // Get the public URL for the image
@@ -66,16 +65,14 @@ export default function OnBoardCard({ user, email }) {
       MatchedStudent: [],
     };
 
-    console.log(data);
-
     fetch("/api/createprofile", {
       method: "POST",
       body: JSON.stringify({ data }),
     })
       .then((res) => res.json())
       .then((res) => {
-        alert("success");
-        console.log(res);
+        toast.success("success");
+
         router.refresh();
       })
       .catch((er) => {
@@ -98,6 +95,7 @@ export default function OnBoardCard({ user, email }) {
         buttonAction={handleOnboard}
         handleFileChange={handleFileChange}
       />
+      <ToastContainer />
     </>
   );
 }

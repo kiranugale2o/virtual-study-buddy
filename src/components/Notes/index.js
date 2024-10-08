@@ -29,7 +29,8 @@ import { formatTime, initialNotesData, supabaseClient } from "@/utils";
 import { useRouter } from "next/navigation";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Progress } from "../ui/progress";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // Main functional component for displaying notes
 export default function NotesComponent({
   ProfileUser,
@@ -144,7 +145,7 @@ export default function NotesComponent({
           setDialogbtn(false); // Close dialog on successful post
           router.refresh("/notes");
         }
-        alert(res.message); // Show success/error message
+        toast.warning(res.message); // Show success/error message
       });
   }
 
@@ -160,7 +161,7 @@ export default function NotesComponent({
     })
       .then((res) => res.json())
       .then((res) => {
-        alert(res.message);
+        toast.success(res.message);
         router.refresh("/notes"); // Show success/error message
       });
   }
@@ -173,10 +174,10 @@ export default function NotesComponent({
     }).then((res) =>
       res.json().then((res) => {
         if (res.success) {
-          alert(res.message);
+          toast.success(res.message);
           router.refresh("/notes");
         } else {
-          alert(res.message);
+          toast.success(res.message);
         }
       })
     );
@@ -195,10 +196,10 @@ export default function NotesComponent({
     }).then((res) =>
       res.json().then((res) => {
         if (res.success) {
-          alert(res.message);
+          toast.success(res.message);
           router.refresh("/notes");
         } else {
-          alert(res.message);
+          toast.success(res.message);
         }
       })
     );
@@ -607,6 +608,7 @@ export default function NotesComponent({
             </div>
           </TabsContent>
         </div>
+        <ToastContainer />
       </Tabs>
     </>
   );

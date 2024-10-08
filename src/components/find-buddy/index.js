@@ -12,6 +12,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function FindBuddy({ user, ProfileUser, buddys }) {
   const ar = [1, 2, 2, 2, 2, 2, 2, 3, 2];
@@ -27,9 +29,9 @@ export default function FindBuddy({ user, ProfileUser, buddys }) {
     }).then((res) =>
       res.json().then((res) => {
         if (res.success) {
-          alert(res.message);
+          toast.success(res.message);
         } else {
-          alert(res.message);
+          toast.warning(res.message);
         }
       })
     );
@@ -184,9 +186,7 @@ export default function FindBuddy({ user, ProfileUser, buddys }) {
             </div>
           </div>
         </div>
-        <div className="fopter">
-          <h1>goooo</h1>
-        </div>
+        <ToastContainer />
       </div>
     </>
   );

@@ -14,13 +14,13 @@ import PusherClient from "pusher-js";
 // cluster = "ap2"
 
 export const pusherServer = new PusherServer({
-  appId: "1876038",
-  key: "754c92de6c8df3b3a733",
-  secret: "c112d5e49d6b23b9a9ac",
+  appId: "1876708",
+  key: "8ffb36d64a0c43c9c044",
+  secret: "ddfa095b8efa75b8fd06",
   cluster: "ap2",
   useTLS: true,
 });
 
-export const pusherClient = new PusherClient("754c92de6c8df3b3a733", {
+export const pusherClient = new PusherClient("8ffb36d64a0c43c9c044", {
   cluster: "ap2",
 });

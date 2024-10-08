@@ -37,7 +37,7 @@ export const POST = async (req) => {
           $push: { messages: newMsg?._id },
         }
       );
-      ConchatId = getConversationMessage?._id;
+      ConchatId = JSON.parse(JSON.stringify(getConversationMessage))._id;
     } else {
       const createConversation = await Chat({
         senderId: senderId,
@@ -46,22 +46,19 @@ export const POST = async (req) => {
       });
 
       await createConversation.save();
-      ConchatId = createConversation?._id;
+      ConchatId = JSON.parse(JSON.stringify(createConversation))._id;
     }
 
+    console.log("chat        sss", ConchatId);
+
     const channelName = "chat"; // You can also make this dynamic based on your logic
-    const eventName = `message${ConchatId}`;
+    const eventName = `${ConchatId}`;
     await pusherServer.trigger("chat", eventName, newMsg);
     console.log("messss", newMsg);
 
     return NextResponse.json({
       success: true,
     });
-    /* Trigger a Pusher event for a specific chat about the new message */
-    //await pusherServer.trigger(chatId, "new-message", newMsg);
-
-    /* Triggers a Pusher event for each member of the chat about the chat update with the latest message */
-    // const lastMessage = updatedChat.messages[updatedChat.messages.length - 1];
   } catch (err) {
     console.log(err);
     return NextResponse.json({

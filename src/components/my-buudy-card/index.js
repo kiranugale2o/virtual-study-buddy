@@ -18,11 +18,12 @@ import {
 } from "../ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function MyBuddyCard({ matchedBuddy, ProfileUser }) {
   const [removeDialog, setRemoveDialog] = useState(false);
 
-  console.log(matchedBuddy);
   const router = useRouter();
   useEffect(() => {
     router.refresh("/buddy/mybuddy");
@@ -40,10 +41,10 @@ export default function MyBuddyCard({ matchedBuddy, ProfileUser }) {
     }).then((res) =>
       res.json().then((res) => {
         if (res.success) {
-          alert(res.message);
+          toast.success(res.message);
           router.refresh("/notes/mybuddy");
         } else {
-          alert(res.message);
+          toast.warning(res.message);
         }
       })
     );
@@ -156,6 +157,7 @@ export default function MyBuddyCard({ matchedBuddy, ProfileUser }) {
               })
             : null}
         </div>
+        <ToastContainer />
       </div>
     </>
   );

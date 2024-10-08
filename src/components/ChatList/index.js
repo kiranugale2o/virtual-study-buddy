@@ -65,8 +65,7 @@ export default function ChatList({ chatlist, ProfileUser }) {
                           <div
                             className="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
                             style={{
-                              backgroundImage:
-                                'url("https://cdn.usegalileo.ai/stability/40c6b67f-935a-4b92-b2c2-3ff1877696df.png")',
+                              backgroundImage: `url(${d.profilePicture})`,
                             }}
                           />
                           <div className="flex flex-col justify-center">
@@ -74,13 +73,13 @@ export default function ChatList({ chatlist, ProfileUser }) {
                               {d.fullName}
                             </p>
                             <p className="text-[#9dabb8] text-sm font-normal leading-normal line-clamp-2">
-                              Product Design at Google
+                              {d.CurrentEducation}
                             </p>
                           </div>
                         </div>
                         <div className="shrink-0">
                           <p className="text-[#9dabb8] text-sm font-normal leading-normal">
-                            {d.online ? "Active" : d.lastSeen}
+                            {d.online ? "online" : "offline"}
                           </p>
                         </div>
                       </div>
