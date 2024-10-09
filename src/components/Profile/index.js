@@ -260,6 +260,7 @@ export default function ProfilePage({ ProfileUser, myNotes, matchedBuddy }) {
               : null}
           </div>
         </div>
+        <ToastContainer />
       </div>
     </>
   );

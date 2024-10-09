@@ -1,6 +1,5 @@
 "use client";
 
-import { pusherClient } from "@/helpers/pusher";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -9,10 +8,6 @@ export default function ChatList({ chatlist, ProfileUser }) {
   const router = useRouter();
 
   useEffect(() => {
-    // const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
-    //   cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER,
-    // });
-
     // Set user online when they connect
     const setUserOnline = async () => {
       await fetch("/api/setUserStatus", {
@@ -43,7 +38,6 @@ export default function ChatList({ chatlist, ProfileUser }) {
 
     return () => {
       setUserOffline();
-      pusherClient.disconnect(); // Clean up Pusher connection
     };
   }, [ProfileUser?._id]);
 

@@ -1,18 +1,75 @@
 "use client";
-import { pusherClient } from "@/helpers/pusher";
+
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { LucideSend } from "lucide-react";
+import { ImageUp, LucideSend } from "lucide-react";
 import { formatDateforLastSeen } from "@/utils";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Realtime } from "ably";
+import { Label } from "../ui/label";
+import { createClient } from "@supabase/supabase-js";
+
+//Supabase client initialization inside a useEffect or conditionally on client-side
+let supabaseClient;
+if (typeof window !== "undefined") {
+  supabaseClient = createClient(
+    "https://yzlxgraclfixtcrahgup.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6bHhncmFjbGZpeHRjcmFoZ3VwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcxOTEzMjIsImV4cCI6MjA0Mjc2NzMyMn0.ILXAWBAG42TltAzzHZQtTN_yF4P79-XfhJn4ORg8src"
+  );
+}
 
 export default function ChatBox({ chat, ProfileUser, ConversationId }) {
+  const data = {
+    senderId: ProfileUser?._id,
+    text: "",
+    photo: "",
+    chatId: chat?._id,
+    time: formatDateforLastSeen(),
+  };
+  const [currentMsgData, setCurrentMsg] = useState(data);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [chats, setChat] = useState([]);
   const [converSationId, setCoversationId] = useState("");
+  const [file, setFile] = useState(null);
+
+  //image upload
+  function handleFileChange(event) {
+    event.preventDefault();
+    setFile(event.target.files[0]);
+  }
+  async function handleFileUploadToSupabase() {
+    if (!supabaseClient || !file) return;
+
+    const { data, error } = await supabaseClient.storage
+      .from("studybuddy")
+      .upload(`/public/${file.name}`, file, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+
+    if (data) {
+      // Get the public URL for the image
+
+      const url = await getImageUrl("studybuddy", data.path);
+      setCurrentMsg({ ...currentMsgData, photo: url, chatId: chat?._id });
+    }
+  }
+  const getImageUrl = async (bucketName, filePath) => {
+    // Get the public URL for the image
+    const { data } = await supabaseClient.storage
+      .from(bucketName)
+      .getPublicUrl(filePath);
+    return data.publicUrl;
+  };
+
+  useEffect(() => {
+    if (file !== null) handleFileUploadToSupabase();
+  }, [file]);
+
+  //close all image upload part
 
   const getChatDetails = async () => {
     await fetch("/api/chats", {
@@ -29,42 +86,44 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
   };
 
   useEffect(() => {
-    getChatDetails();
-    pusherClient.subscribe("chat");
+    if (chat?._id && ProfileUser?._id && ConversationId) getChatDetails();
+  }, [ConversationId]);
 
-    pusherClient.bind(`${ConversationId}`, (data) => {
-      // setMessages((prevMessages) => [...prevMessages, data]);
-      setMessages((...prevMsg) => [data]);
-      console.log(messages, "mssssss");
+  // Initialize Ably
+
+  const ably = new Realtime(
+    "dNFTmg.aD98sA:NV14WYDsQMiMWYaxH5LYqLA9MXX_hXl4JtQl7D3lNME"
+  ); // Replace with your Ably API key
+  const channel = ably.channels.get("chat");
+
+  useEffect(() => {
+    // Subscribe to messages
+    channel.subscribe(`message${ConversationId}`, (msg) => {
+      setMessages((prevMessages) => [...prevMessages, msg.data]);
     });
 
     return () => {
-      pusherClient.unsubscribe("chat");
-      pusherClient.unbind(`message${ConversationId}`);
+      channel.unsubscribe();
     };
-  }, [message]);
+  }, [ConversationId]);
 
   function sendMessage() {
-    const data = {
-      senderId: ProfileUser?._id,
-      text: message,
-      photo: "",
-      chatId: chat?._id,
-      time: formatDateforLastSeen(),
-    };
-    fetch("/api/sendMessage", {
-      method: "POST",
-      body: JSON.stringify(data),
-    }).then((res) =>
-      res.json().then((res) => {
-        if (res.success) {
-          setMessage("");
-          getChatDetails();
-        } else {
-          toast.error("Somthing wrong ! Refresh your page");
-        }
-      })
-    );
+    setCurrentMsg({ ...currentMsgData, senderId: ProfileUser?._id });
+    if (currentMsgData.text !== "" || currentMsgData.photo !== "") {
+      fetch("/api/sendMessage", {
+        method: "POST",
+        body: JSON.stringify(currentMsgData),
+      }).then((res) =>
+        res.json().then((res) => {
+          if (res.success) {
+            channel.publish(`message${ConversationId}`, currentMsgData);
+            setCurrentMsg({ ...currentMsgData, text: "", photo: "" });
+          } else {
+            toast.error("Somthing wrong ! Refresh your page");
+          }
+        })
+      );
+    }
   }
   return (
     <div>
@@ -102,6 +161,21 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
                           : "bot-message"
                       }`}
                     >
+                      <div>
+                        {msg.photo !== "" ? (
+                          <div
+                            className={`message ${
+                              msg.senderId === ProfileUser?._id
+                                ? "user-message"
+                                : "bot-message"
+                            }`}
+                          >
+                            <img src={msg.photo} alt="image"></img>
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                       <span>
                         {msg.text}
                         {"  "}
@@ -126,8 +200,27 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
                         : "bot-message"
                     }`}
                   >
-                    {d.text}
-                    {"ff"}
+                    <div>
+                      {" "}
+                      {d.photo !== "" ? (
+                        <div
+                          className={`message ${
+                            d.senderId === ProfileUser?._id
+                              ? "user-message"
+                              : "bot-message"
+                          }`}
+                        >
+                          <img src={d.photo} alt="image"></img>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <span>
+                      {d.text}
+                      {"  "}
+                      <sub className="">{formatDateforLastSeen()}</sub>
+                    </span>
                   </div>
                 );
               })}
@@ -137,18 +230,25 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
       </div>
 
       <div>
-        <div className=" flex absolute bottom-1 mt-20 p-2 border w-full bg-sky-100 justify-between lg:w-[560px] mx-0 ml-0">
+        <div className=" flex absolute   p-2 border w-full bg-sky-100 justify-between lg:w-[560px] mx-0 ml-0">
           <input
             className=" w-full border p-2"
             type="text"
-            value={message}
+            value={currentMsgData.text}
             onChange={(e) => {
-              setMessage(e.target.value);
+              setCurrentMsg({ ...currentMsgData, text: e.target.value });
             }}
           />
 
-          <br />
-
+          <Label htmlFor="img" className="mt-2 ml-1">
+            <ImageUp />
+          </Label>
+          <input
+            type="file"
+            id="img"
+            onChange={(e) => handleFileChange(e)}
+            className="w-[60px] hidden"
+          ></input>
           <div className="lg:flex justify-between mx-auto ">
             <div className="border rounded-full mt-2 ml-3">
               <LucideSend onClick={sendMessage} />

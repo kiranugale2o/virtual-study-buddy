@@ -1,17 +1,25 @@
 import DatabaseConn from "@/database";
-import { pusherServer } from "@/helpers/pusher";
 import Chat from "@/model/Chat";
 import Message from "@/model/Message";
+import { Realtime } from "ably";
 import { NextResponse } from "next/server";
 
 export const POST = async (req) => {
+  console.log({
+    appId: "1876708",
+    key: "8ffb36d64a0c43c9c044",
+    secret: "ddfa095b8efa75b8fd06",
+    cluster: "ap2",
+    useTLS: true,
+  });
+
   try {
     await DatabaseConn();
 
     const body = await req.json();
     let ConchatId;
     const { senderId, text, photo, chatId, time } = body;
-    console.log(chatId);
+    console.log(body);
 
     const newMsg = await Message.create({
       senderId,
@@ -48,13 +56,6 @@ export const POST = async (req) => {
       await createConversation.save();
       ConchatId = JSON.parse(JSON.stringify(createConversation))._id;
     }
-
-    console.log("chat        sss", ConchatId);
-
-    const channelName = "chat"; // You can also make this dynamic based on your logic
-    const eventName = `${ConchatId}`;
-    await pusherServer.trigger("chat", eventName, newMsg);
-    console.log("messss", newMsg);
 
     return NextResponse.json({
       success: true,
