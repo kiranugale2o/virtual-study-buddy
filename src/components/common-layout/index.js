@@ -14,7 +14,7 @@ export default function CommonLayout({ user, ProfileUser, children }) {
       <main>{children}</main>
       <hr />
       <footer
-        className="flex flex-col text-white lg:gap-6 px-2 lg:px-5 py-10 text-center @container"
+        className=" none flex flex-col text-white lg:gap-6 px-2 lg:px-5 py-10 text-center @container"
         style={{
           display: `${
             pathname === "/chat" ||
