@@ -72,7 +72,7 @@ export default function Navbar({ user, ProfileInfo }) {
 
           <Sheet>
             <SheetTrigger
-              className={`flex mt-0  ml-20  lg:hidden ${
+              className={`flex mt-0  ml-10  lg:hidden ${
                 user ? "block" : "hidden"
               }`}
             >
