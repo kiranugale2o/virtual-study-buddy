@@ -52,7 +52,7 @@ export default function Navbar({ user, ProfileInfo }) {
   return (
     <>
       <header class="  flex items-center justify-between whitespace-nowrap border-b border-b-[#f0f2f4] bg-slate-900 px-5 lg:px-10 py-3  shadow-sm   h-auto ">
-        <div class="flex items-center p-2 lg:p-0 justify-between gap-2 text-[#111418]">
+        <div class="flex items-center py-2 lg:p-0 justify-between lg:gap-2 text-[#111418]">
           <div class="size-6 lg:size-8">
             <svg
               viewBox="0 0 48 48"
@@ -136,11 +136,11 @@ export default function Navbar({ user, ProfileInfo }) {
           <button
             className={`${
               user ? "hidden" : "flex"
-            } flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-black  text-white text-sm font-bold leading-normal tracking-[0.015em]`}
+            } flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 lg:px-4 bg-black  text-white text-sm font-bold leading-normal tracking-[0.015em]`}
           >
             <Link href={pathname === "/sign-up" ? "/sign-in" : "/sign-up"}>
               <span class="">
-                {pathname === "/sign-up" ? "Log In" : "Create Account"}
+                {pathname === "/sign-up" ? "Log In" : "Sign up"}
               </span>
             </Link>
           </button>
