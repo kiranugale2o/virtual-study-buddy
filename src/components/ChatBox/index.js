@@ -89,7 +89,7 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
           <div className="shrink-0"></div>
         </div>
 
-        <div className="flex flex-col gap-1 p-10 overflow-auto h-[400px] lg:h-[400px]">
+        <div className="flex flex-col gap-1 p-10 overflow-auto h-[450px] lg:h-[400px]">
           {chats && chats.length > 0 ? (
             <>
               {chats[0].map((msg) => {
@@ -137,7 +137,7 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
       </div>
 
       <div>
-        <div className=" flex fixed bottom-5 p-2 border w-full bg-sky-100 justify-between lg:w-[560px] mx-0 ml-0">
+        <div className=" flex absolute bottom-1 mt-20 p-2 border w-full bg-sky-100 justify-between lg:w-[560px] mx-0 ml-0">
           <input
             className=" w-full border p-2"
             type="text"

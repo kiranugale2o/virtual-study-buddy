@@ -51,7 +51,7 @@ export default function Navbar({ user, ProfileInfo }) {
 
   return (
     <>
-      <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-5 lg:px-10 py-3  shadow   h-auto ">
+      <header class="  flex items-center justify-between whitespace-nowrap border-b border-b-[#f0f2f4] bg-slate-900 px-5 lg:px-10 py-3  shadow-sm   h-auto ">
         <div class="flex items-center p-2 lg:p-0 justify-between gap-2 text-[#111418]">
           <div class="size-6 lg:size-8">
             <svg
@@ -72,11 +72,11 @@ export default function Navbar({ user, ProfileInfo }) {
 
           <Sheet>
             <SheetTrigger
-              className={`flex mt-0  ml-20 border rounded-lg bg-sky-100 lg:hidden ${
+              className={`flex mt-0  ml-20  lg:hidden ${
                 user ? "block" : "hidden"
               }`}
             >
-              <MenuIcon className="font-2xl size-9 p-1  " />
+              <MenuIcon className="font-2xl text-sky-400 size-9   " />
             </SheetTrigger>
 
             <SheetContent>
@@ -117,14 +117,14 @@ export default function Navbar({ user, ProfileInfo }) {
         </div>
 
         <div className="flex  lg:flex">
-          <div className=" hidden lg:flex flex-row  grid gap-10 grid-cols-3 mr-5">
+          <div className=" hidden lg:flex flex-row mt-1 grid gap-10 grid-cols-3 mr-5">
             {navItem.map((d) => {
               return (
                 <>
                   {d.show ? (
                     <Link
                       href={d.path}
-                      className=" font-semibold uppercase flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] hover:bg-sky-300 bg-sky-100 text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]"
+                      className=" font-semibold uppercase flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-8 px-4 bg-[#f0f2f4] hover:bg-sky-300 bg-sky-200 text-[#111418]  border-b  border-cyan-500 text-sm font-bold leading-normal tracking-[0.015em]"
                     >
                       {d.name}
                     </Link>

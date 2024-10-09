@@ -5,15 +5,15 @@ export default function HomePage({ ProfileUser, user }) {
   const router = useRouter();
   return (
     <>
-      <div className="lg:px-40 flex flex-1 justify-center   w-full">
-        <div className="layout-content-container flex flex-col lg:max-w-[960px] flex-1">
+      <div className="   flex flex-1    w-full">
+        <div className="layout-content-container flex flex-col  flex-1">
           <div className="@container">
             <div className="@[480px]:p-4">
               <div
                 className="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-start justify-end px-4 pb-10 @[480px]:px-10"
                 style={{
                   backgroundImage:
-                    'linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url("https://cdn.usegalileo.ai/stability/f285ade4-cbef-442c-a14d-6f980571a960.png")',
+                    'linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 60%), url("studybuddy.jpg")',
                 }}
               >
                 <div className="flex flex-col gap-2 text-left">
@@ -267,7 +267,10 @@ export default function HomePage({ ProfileUser, user }) {
             </div>
           </div>
           <div className="flex px-4 py-3 justify-center">
-            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-[#47a6e6] text-[#111517] text-base font-bold leading-normal tracking-[0.015em]">
+            <button
+              onClick={() => router.push("/buddy")}
+              className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-[#47a6e6] text-[#111517] text-base font-bold leading-normal tracking-[0.015em]"
+            >
               <span className="truncate">Get started</span>
             </button>
           </div>

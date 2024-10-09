@@ -42,7 +42,7 @@ export default function ChatbotCard() {
   return (
     <div className="w-full p-0  bg-white lg:p-20   mx-0">
       <h1 className="text-3xl bg-white lg:mt-5 font-semibold ">
-        Chatbot For Candidate
+        My Name is Anny, Ask ME Any 😊
       </h1>
       <hr />
       <div className="h-[500px] lg:h-[400px] overflow-y-auto bg-white flex flex-col gap-2 p-10 lg:p-0">
