@@ -1,4 +1,5 @@
 import { currentUser, fetchUser } from "@/actions";
+import FooterCard from "@/components/Footer";
 import HomePage from "@/components/Home";
 import Image from "next/image";
 
@@ -14,5 +15,10 @@ export default async function Home() {
   //   redirect("/onboard");
   // }
 
-  return <HomePage ProfileUser={ProfileUser} user={user} />;
+  return (
+    <>
+      <HomePage ProfileUser={ProfileUser} user={user} />
+      <FooterCard />
+    </>
+  );
 }

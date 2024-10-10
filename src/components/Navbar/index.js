@@ -51,8 +51,8 @@ export default function Navbar({ user, ProfileInfo }) {
 
   return (
     <>
-      <header class="  flex items-center justify-between whitespace-nowrap border-b border-b-[#f0f2f4] bg-slate-900 px-5 lg:px-10 py-3  shadow-sm   h-auto ">
-        <div class="flex items-center py-2 lg:p-0 justify-between lg:gap-2 text-[#111418]">
+      <header class=" fixed z-[1000] w-full lg:auto lg:relative flex items-center justify-between whitespace-nowrap border-b border-b-[#f0f2f4] bg-slate-900 px-5 lg:px-10 py-3  shadow-sm   h-auto ">
+        <div class=" flex items-center py-2 lg:p-0 justify-between lg:gap-2 text-[#111418]">
           <div class="size-6 lg:size-8">
             <svg
               viewBox="0 0 48 48"
@@ -79,7 +79,7 @@ export default function Navbar({ user, ProfileInfo }) {
               <MenuIcon className="font-2xl text-sky-400 size-9   " />
             </SheetTrigger>
 
-            <SheetContent>
+            <SheetContent className="py-24">
               <SheetTitle
                 className="uppercase text-2xl semibold text-sky-400 "
                 onClick={() => {
@@ -88,7 +88,7 @@ export default function Navbar({ user, ProfileInfo }) {
               >
                 StudyBuddy
               </SheetTitle>
-              <div className=" flex flex-col lg:hidden justify-start mt-6 gap-5   ">
+              <div className=" flex flex-col lg:hidden justify-start  mt-6 gap-5   ">
                 {navItem.map((d) => {
                   return (
                     <div key={d.name}>

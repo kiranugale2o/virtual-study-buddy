@@ -45,10 +45,12 @@ export default function ChatList({ chatlist, ProfileUser }) {
     <>
       <div className="flex flex-col item-center justify-between lg:-24">
         <div className="">
-          <div className="text-3xl font-semibold py-5 lg:p-5">Chat Buddies</div>
+          <div className="text-3xl font-semibold py-5 lg:p-5">
+            Chat Your Matched Buddies
+          </div>
           <hr></hr>
 
-          <div className="mt-10 flex flex-col lg:px-10 ">
+          <div className="lg:mt-10 flex flex-col lg:px-10 ">
             {chatlist && chatlist.length > 0 ? (
               <>
                 {chatlist.map((d) => {

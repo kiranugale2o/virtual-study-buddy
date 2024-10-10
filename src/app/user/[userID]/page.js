@@ -15,8 +15,8 @@ export default async function UserProfile({ params }) {
   console.log(SearchBuddy);
 
   return (
-    <>
+    <div className="py-20 lg:py-auto">
       <BuddyProfileCard ProfileUser={ProfileUser} SearchBuddy={SearchBuddy} />
-    </>
+    </div>
   );
 }

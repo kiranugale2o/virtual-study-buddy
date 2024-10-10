@@ -10,6 +10,16 @@ import "react-toastify/dist/ReactToastify.css";
 import { Realtime } from "ably";
 import { Label } from "../ui/label";
 import { createClient } from "@supabase/supabase-js";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
 
 //Supabase client initialization inside a useEffect or conditionally on client-side
 let supabaseClient;
@@ -34,6 +44,7 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
   const [chats, setChat] = useState([]);
   const [converSationId, setCoversationId] = useState("");
   const [file, setFile] = useState(null);
+  const [dialogBtn, setDialogbtn] = useState(false);
 
   //image upload
   function handleFileChange(event) {
@@ -55,6 +66,7 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
 
       const url = await getImageUrl("studybuddy", data.path);
       setCurrentMsg({ ...currentMsgData, photo: url, chatId: chat?._id });
+      setDialogbtn(true);
     }
   }
   const getImageUrl = async (bucketName, filePath) => {
@@ -118,6 +130,7 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
           if (res.success) {
             channel.publish(`message${ConversationId}`, currentMsgData);
             setCurrentMsg({ ...currentMsgData, text: "", photo: "" });
+            setDialogbtn(false);
           } else {
             toast.error("Somthing wrong ! Refresh your page");
           }
@@ -127,8 +140,33 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
   }
   return (
     <div>
+      <Dialog open={dialogBtn} onOpenChange={setDialogbtn}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="text-2xl text-sky-500">
+              Send Image
+            </DialogTitle>
+          </DialogHeader>
+          <div className="w-[200px]">
+            {currentMsgData.photo !== "" ? (
+              <img src={currentMsgData.photo} alt="sending image" />
+            ) : null}
+          </div>
+          <DialogFooter className="gap-5 flex flex-row mx-auto lg:mx-0 lg:gap-0">
+            <DialogClose asChild>
+              <Button
+                className="bg-sky-500 hover:bg-sky-400"
+                onClick={sendMessage}
+              >
+                Send
+              </Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       <div className="flex flex-col justify-between w-full">
-        <div className="flex items-center gap-4 bg-[#111418] w-full  px-4 min-h-[72px] py-2 justify-between">
+        <div className="fixed z-[1000] lg:relative lg:z-[0] flex items-center gap-4 bg-[#111418] w-full  px-4 min-h-[72px] py-2 justify-between">
           <div className="flex items-center gap-4">
             <div
               className="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-fit"
@@ -148,7 +186,7 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
           <div className="shrink-0"></div>
         </div>
 
-        <div className="flex flex-col gap-1 p-10 overflow-auto h-[450px] lg:h-[400px]">
+        <div className="flex flex-col gap-1 p-10 overflow-auto h-[600px] lg:h-[450px]">
           {chats && chats.length > 0 ? (
             <>
               {chats[0].map((msg) => {
@@ -161,15 +199,9 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
                           : "bot-message"
                       }`}
                     >
-                      <div>
+                      <div className="lg:w-[250px]">
                         {msg.photo !== "" ? (
-                          <div
-                            className={`message ${
-                              msg.senderId === ProfileUser?._id
-                                ? "user-message"
-                                : "bot-message"
-                            }`}
-                          >
+                          <div>
                             <img src={msg.photo} alt="image"></img>
                           </div>
                         ) : (
@@ -200,21 +232,13 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
                         : "bot-message"
                     }`}
                   >
-                    <div>
-                      {" "}
+                    <div className="lg:w-[250px]">
                       {d.photo !== "" ? (
-                        <div
-                          className={`message ${
-                            d.senderId === ProfileUser?._id
-                              ? "user-message"
-                              : "bot-message"
-                          }`}
-                        >
+                        <div>
                           <img src={d.photo} alt="image"></img>
+                          <sub>{formatDateforLastSeen()}</sub>
                         </div>
-                      ) : (
-                        ""
-                      )}
+                      ) : null}
                     </div>
                     <span>
                       {d.text}

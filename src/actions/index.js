@@ -62,8 +62,10 @@ export async function fetchAllBuddys() {
 }
 //fetch Single Buddy
 export async function fetchOneBuddy(id) {
+  console.log("one buddyid", id);
+
   await DatabaseConn();
-  const data = await Student.findById(id);
+  const data = await Student.findOne({ _id: id });
   if (data) {
     return JSON.parse(JSON.stringify(data));
   } else {

@@ -19,10 +19,9 @@ const ChatsID = async ({ params }) => {
   }
 
   const { chatId } = params;
+  console.log(chatId, "ddddddd");
 
   const chatuser = await fetchOneBuddy(chatId);
-  console.log(chatuser, chatId);
-
   const ConversationId = await getConversationId(ProfileUser?._id, chatId);
   const data = await getMatchedStudents(ProfileUser?._id);
   return (

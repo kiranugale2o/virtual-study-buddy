@@ -20,10 +20,12 @@ export default async function Profile() {
   const myNotes = await GetMyPostedNotes(ProfileUser?._id);
   const matchedBuddy = await getMatchedStudents(ProfileUser?._id);
   return (
-    <ProfilePage
-      ProfileUser={ProfileUser}
-      myNotes={myNotes}
-      matchedBuddy={matchedBuddy}
-    />
+    <div className="py-20 lg:py-0">
+      <ProfilePage
+        ProfileUser={ProfileUser}
+        myNotes={myNotes}
+        matchedBuddy={matchedBuddy}
+      />
+    </div>
   );
 }

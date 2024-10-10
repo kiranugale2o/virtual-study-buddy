@@ -13,7 +13,7 @@ export default function HomePage({ ProfileUser, user }) {
                 className="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-start justify-end px-4 pb-10 @[480px]:px-10"
                 style={{
                   backgroundImage:
-                    'linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 60%), url("studybuddy.jpg")',
+                    'linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 60%), url("studybuddybanner.jpg")',
                 }}
               >
                 <div className="flex flex-col gap-2 text-left">

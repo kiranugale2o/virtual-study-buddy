@@ -15,7 +15,7 @@ const Chats = async () => {
   const data = await getMatchedStudents(ProfileUser?._id);
 
   return (
-    <div className="">
+    <div className="py-20 lg:py-0">
       <ChatList chatlist={data} ProfileUser={ProfileUser} />
     </div>
   );

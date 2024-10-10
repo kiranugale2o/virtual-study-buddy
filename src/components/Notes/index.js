@@ -25,7 +25,7 @@ import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
-import { formatTime, initialNotesData, supabaseClient } from "@/utils";
+import { formatTime, initialNotesData, storage, supabaseClient } from "@/utils";
 import { useRouter } from "next/navigation";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Progress } from "../ui/progress";
@@ -321,7 +321,7 @@ export default function NotesComponent({
               <h1 className="text-[20px]">Uploading Video.....</h1>
               <Progress value={videoProgress} />
               <Button
-                disabled={videoProgress === 100}
+                disabled={videoProgress < 100}
                 onClick={() => setVideoProgressDialog(false)}
                 className="bg-black  w-[80px] mr-2"
               >

@@ -21,11 +21,13 @@ export default async function NotesPage() {
   const myNotes = await GetMyPostedNotes(ProfileUser?._id);
   const favouriteNotes = await GetFavouritesNotes(ProfileUser?._id);
   return (
-    <NotesComponent
-      ProfileUser={ProfileUser}
-      Notes={Notes}
-      myNotes={myNotes}
-      favouriteNotes={favouriteNotes}
-    />
+    <div className="py-20 lg:py-0">
+      <NotesComponent
+        ProfileUser={ProfileUser}
+        Notes={Notes}
+        myNotes={myNotes}
+        favouriteNotes={favouriteNotes}
+      />
+    </div>
   );
 }

@@ -1,5 +1,6 @@
 import { currentUser, fetchAllBuddys, fetchUser } from "@/actions";
 import FindBuddy from "@/components/find-buddy";
+import FooterCard from "@/components/Footer";
 import { redirect } from "next/navigation";
 
 export default async function BuddyPage() {
@@ -13,5 +14,10 @@ export default async function BuddyPage() {
   }
 
   const buddys = await fetchAllBuddys();
-  return <FindBuddy user={user} ProfileUser={ProfileUser} buddys={buddys} />;
+  return (
+    <div className="py-20 lg:py-0">
+      <FindBuddy user={user} ProfileUser={ProfileUser} buddys={buddys} />;
+      <FooterCard />
+    </div>
+  );
 }
