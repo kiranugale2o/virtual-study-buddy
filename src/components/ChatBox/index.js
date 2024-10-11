@@ -50,6 +50,7 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
   function handleFileChange(event) {
     event.preventDefault();
     setFile(event.target.files[0]);
+    toast.success("wait a Second !");
   }
   async function handleFileUploadToSupabase() {
     if (!supabaseClient || !file) return;
@@ -236,14 +237,14 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
                       {d.photo !== "" ? (
                         <div>
                           <img src={d.photo} alt="image"></img>
-                          <sub>{formatDateforLastSeen()}</sub>
+                          <sub>{d.time}</sub>
                         </div>
                       ) : null}
                     </div>
                     <span>
                       {d.text}
                       {"  "}
-                      <sub className="">{formatDateforLastSeen()}</sub>
+                      <sub className="">{d.time}</sub>
                     </span>
                   </div>
                 );
@@ -254,30 +255,39 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
       </div>
 
       <div>
-        <div className=" flex absolute   p-2 border w-full bg-sky-100 justify-between lg:w-[560px] mx-0 ml-0">
-          <input
-            className=" w-full border p-2"
-            type="text"
-            value={currentMsgData.text}
-            onChange={(e) => {
-              setCurrentMsg({ ...currentMsgData, text: e.target.value });
-            }}
-          />
+        <div>
+          <form
+            action={sendMessage}
+            className=" flex absolute   p-2 border w-full bg-sky-100 justify-between lg:w-[560px] mx-0 ml-0"
+          >
+            <input
+              className=" w-full border p-2"
+              type="text"
+              value={currentMsgData.text}
+              onChange={(e) => {
+                setCurrentMsg({ ...currentMsgData, text: e.target.value });
+              }}
+            />
 
-          <Label htmlFor="img" className="mt-2 ml-1">
-            <ImageUp />
-          </Label>
-          <input
-            type="file"
-            id="img"
-            onChange={(e) => handleFileChange(e)}
-            className="w-[60px] hidden"
-          ></input>
-          <div className="lg:flex justify-between mx-auto ">
-            <div className="border rounded-full mt-2 ml-3">
-              <LucideSend onClick={sendMessage} />
+            <Label htmlFor="img" className="mt-2 ml-1">
+              <ImageUp />
+            </Label>
+            <input
+              type="file"
+              id="img"
+              onChange={(e) => handleFileChange(e)}
+              className="w-[60px] hidden"
+            ></input>
+            <div className="lg:flex justify-between mx-auto ">
+              <div className="border rounded-full mt-2 ml-3">
+                <LucideSend
+                  type="submit"
+                  onClick={sendMessage}
+                  className="hover:bg-black hover:text-white border rounded-lg"
+                />
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
       <ToastContainer />

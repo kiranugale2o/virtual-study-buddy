@@ -7,6 +7,7 @@ import {
 } from "@/actions";
 import ChatBox from "@/components/ChatBox";
 import ChatList from "@/components/ChatList";
+import { Realtime } from "ably";
 import { redirect } from "next/navigation";
 
 const ChatsID = async ({ params }) => {
@@ -24,6 +25,7 @@ const ChatsID = async ({ params }) => {
   const chatuser = await fetchOneBuddy(chatId);
   const ConversationId = await getConversationId(ProfileUser?._id, chatId);
   const data = await getMatchedStudents(ProfileUser?._id);
+
   return (
     <div className="main-container">
       <div className="w-2/3 max-lg:hidden border bg-sky-50">

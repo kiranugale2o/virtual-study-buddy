@@ -14,14 +14,19 @@ import {
 } from "../ui/dialog";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Realtime } from "ably";
+import { useEffect, useState } from "react";
 
 export default function FindBuddy({ user, ProfileUser, buddys }) {
-  const ar = [1, 2, 2, 2, 2, 2, 2, 3, 2];
-
   function handleMatchButton(id) {
     const data = {
       userId: ProfileUser?._id,
       matchUser: id,
+    };
+
+    const notification = {
+      message: `${ProfileUser?.fullName}, this buddy match you to study together!`,
+      userId: ProfileUser?._id,
     };
     fetch("/api/addmatchbuddy", {
       method: "POST",

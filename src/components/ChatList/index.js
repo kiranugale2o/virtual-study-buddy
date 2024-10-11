@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
+import { Realtime } from "ably";
 
 export default function ChatList({ chatlist, ProfileUser }) {
   const router = useRouter();
@@ -74,9 +76,16 @@ export default function ChatList({ chatlist, ProfileUser }) {
                           </div>
                         </div>
                         <div className="shrink-0">
-                          <p className="text-[#9dabb8] text-sm font-normal leading-normal">
+                          {/* <p className="text-[#9dabb8] text-sm font-normal leading-normal">
                             {d.online ? "online" : "offline"}
-                          </p>
+                          </p> */}
+                          <Button
+                            onClick={() => {
+                              router.push(`/chat/${d._id}`);
+                            }}
+                          >
+                            Message
+                          </Button>
                         </div>
                       </div>
                     </Link>
