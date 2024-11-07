@@ -187,7 +187,7 @@ export default function ChatBox({ chat, ProfileUser, ConversationId }) {
           <div className="shrink-0"></div>
         </div>
 
-        <div className="flex flex-col gap-1 p-10 overflow-auto h-[600px] lg:h-[450px]">
+        <div className="flex flex-col gap-1 p-10 overflow-auto py-20 lg:py-auto h-[600px] lg:h-[450px]">
           {chats && chats.length > 0 ? (
             <>
               {chats[0].map((msg) => {
